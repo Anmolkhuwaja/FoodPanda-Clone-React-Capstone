@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -8,50 +8,53 @@ import MenuItem from "@mui/material/MenuItem";
 import Logo from "../../assets/Logo image.png";
 import Menu from "@mui/material/Menu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faCircleCheck, faHeart } from "@fortawesome/free-regular-svg-icons";
-import { faBagShopping, faEllipsisVertical, faGlobe, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { Button, Modal, TextField, Typography } from "@mui/material";
+import {
+  faBell,
+  faCircleCheck,
+  faHeart,
+} from "@fortawesome/free-regular-svg-icons";
+import {
+  faAngleDown,
+  faArrowRightFromBracket,
+  faBagShopping,
+  faEllipsisVertical,
+  faGlobe,
+  faUser,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import { Button, Divider, Modal, TextField, Typography } from "@mui/material";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
-// Style for the first modal
-const style = {
-    position: 'absolute',
-    top: '15%',
-    left: '88%',
-    transform: 'translate(-50%, -50%)',
-    width: 130,
-    bgcolor: '#f7f7f7',
-    boxShadow: 20,
-    p: 2,
-    borderRadius: '16px',
-  };
 
-  // Style for the second modal
-const signUpLoginUpStyle = {
-  position: "absolute",
-  top: "48%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 380,
-  height: 500,
-  bgcolor: "#f7f7f7",
-  boxShadow: 20,
-  p: 4,
-  borderRadius: "16px",
-};
+// Schema for Validation
+const schema = yup.object({
+  username: yup
+    .string()
+    .min(5, "Min 5 characters")
+    .required("Username is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .required("Password is required"),
+});
 
 const Header = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
-      // Declare state for one & second modal
-     const [open, setOpen] = React.useState(false);
-    const [open2, setOpen2] = React.useState(false);
+  // Declare state for one & second modal
+  const [open, setOpen] = React.useState(false);
 
-    // Handle functions for one modal & second
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-    const handleOpen2 = () => setOpen2(true);
-    const handleClose2 = () => setOpen2(false);
+  // Handle functions for one modal & second & third
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [open2, setOpen2] = useState(false); // For Login/Signup Modal
+  const [open3, setOpen3] = useState(false); // For Logout Modal
+  const [open4, setOpen4] = useState(false); // For Logout Modal
+  const [user, setUser] = useState(null); // Store Logged-in User
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -125,6 +128,37 @@ const Header = () => {
     </Menu>
   );
 
+  // React Hook Form setup
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  // Check local storage on component mount
+  useEffect(() => {
+    const savedUser = JSON.parse(localStorage.getItem("user"));
+    if (savedUser) {
+      setUser(savedUser);
+    }
+  }, []);
+
+  // Handle Signup/Login
+  const onSubmit = (data) => {
+    localStorage.setItem("user", JSON.stringify(data));
+    setUser(data);
+    setOpen2(false);
+  };
+
+  // Logout
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    setOpen3(false);
+  };
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -138,45 +172,66 @@ const Header = () => {
 
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <Box className='flex items-center px-2'>
-              <Button
-                onClick={handleOpen2}
-                variant="outlined"
-                size="small"
-                sx={{
-                  color: "#39434d",
-                  border: "1px solid #39434d",
-                   textTransform: "Capitalize",
-                   fontSize:'18px',
-                  "&:hover": {
-                    backgroundColor: "#e7eaf1",
-                  },
-                }}
-               className="h-10 transform transition-transform duration-400 hover:scale-105"
-              >
-                Log in
-              </Button>
-             
-              <Button
-               onClick={handleOpen2}
-                variant="outlined"
-                size="small"
-                sx={{
-                  color: "#fff",
-                  border: "1px solid #e21b70",
-                  background:"#e21b70",
-                   textTransform: "capitalize",
-                   marginLeft:'25px',
-                   fontSize:'18px',
-                  "&:hover": {
-                    backgroundColor: '#9d0a48',
-                  },
-                }}
-                 className="h-10 transform transition-transform duration-400 hover:scale-105"
-              >
-                Sign in
-              </Button>
-              </Box>
+              {!user ? (
+                <>
+                  <Button
+                    onClick={() => setOpen2(true)}
+                    variant="outlined"
+                    className="transform transition-transform duration-400 hover:scale-105"
+                    sx={{
+                      color: "#39434d",
+                      border: "1px solid #39434d",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    Log in
+                  </Button>
+                  <Button
+                    onClick={() => setOpen2(true)}
+                    variant="outlined"
+                    className=" transform transition-transform duration-400 hover:scale-105"
+                    sx={{
+                      color: "#fff",
+                      border: "1px solid #e21b70",
+                      background: "#e21b70",
+                      marginLeft: "25px",
+                      textTransform: "capitalize",
+                      "&:hover": {
+                        backgroundColor: "#9d0a48",
+                      },
+                    }}
+                  >
+                    Sign up
+                  </Button>
+                </>
+              ) : (
+                <Box className="flex items-center justify-center">
+                  <FontAwesomeIcon
+                    onClick={() => setOpen3(true)}
+                    sx={{ color: "#9d0a48" }}
+                    className="text-gray-700 cursor-pointer text-xl"
+                    icon={faUser}
+                  />
+                  <Typography
+                    className="ps-1"
+                    onClick={() => setOpen4(true)}
+                    sx={{
+                      cursor: "pointer",
+                      color: "#39434d",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {user.username}
+                  </Typography>
+                  <FontAwesomeIcon
+                    sx={{ color: "#9d0a48" }}
+                    className="text-pink-600 cursor-pointer text-2xl ps-1"
+                    icon={faAngleDown}
+                  />
+                </Box>
+              )}
+            </Box>
+            <Box>
               <IconButton
                 size="large"
                 aria-label="show 4 new mails"
@@ -207,136 +262,285 @@ const Header = () => {
                 <FontAwesomeIcon className="text-black" icon={faBagShopping} />
               </IconButton>
             </Box>
-            <Box sx={{ display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="show more"
-                aria-controls={mobileMenuId}
-                aria-haspopup="true"
-                onClick={handleMobileMenuOpen}
-                sx={{color:'black'}}
-              >
-                <FontAwesomeIcon icon={faEllipsisVertical}/>
-              </IconButton>
-            </Box>
           </Toolbar>
         </AppBar>
+
+        <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <IconButton
+            size="large"
+            aria-label="show more"
+            aria-controls={mobileMenuId}
+            aria-haspopup="true"
+            onClick={handleMobileMenuOpen}
+            sx={{ color: "black" }}
+          >
+            <FontAwesomeIcon icon={faEllipsisVertical} />
+          </IconButton>
+        </Box>
         {renderMobileMenu}
 
         {/* Modal 1 */}
         <Modal
-        keepMounted
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="keep-mounted-modal-title"
-        aria-describedby="keep-mounted-modal-description"
-      >
-        <Box sx={style} className='flex items-center justify-between'>
-          <Typography id="keep-mounted-modal-title" variant="h6" className="text-base text-black">
-            English
-          </Typography>
-          <FontAwesomeIcon sx={{color:'#9d0a48'}} className="text-pink-600" icon={faCircleCheck} />
-        </Box>
-      </Modal>
-
-      {/* Modal 2 */}
-      <Modal
-        keepMounted
-        open={open2}
-        onClose={handleClose2}
-        aria-labelledby="second-modal-title"
-        aria-describedby="second-modal-description"
-      >
-        <Box sx={signUpLoginUpStyle}>
-          <Box className="flex items-center justify-between">
+          keepMounted
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="keep-mounted-modal-title"
+          aria-describedby="keep-mounted-modal-description"
+        >
+          <Box sx={{
+             position: "absolute",
+             top: "15%",
+             left: "88%",
+             transform: "translate(-50%, -50%)",
+             width: 130,
+             bgcolor: "#f7f7f7",
+             boxShadow: 20,
+             p: 2,
+             borderRadius: "16px",
+          }} className="flex items-center justify-between">
             <Typography
-              id="second-modal-title"
-              sx={{ fontSize: "28px", fontWeight: "500" }}
+              id="keep-mounted-modal-title"
               variant="h6"
-              className="text-black"
+              className="text-base text-black"
+            >
+              English
+            </Typography>
+            <FontAwesomeIcon
+              sx={{ color: "#9d0a48" }}
+              className="text-pink-600"
+              icon={faCircleCheck}
+            />
+          </Box>
+        </Modal>
+
+        {/* Modal 3: Logout */}
+        <Modal open={open3} onClose={() => setOpen3(false)}>
+          <Box
+            sx={{
+              width: 600,
+              margin: "200px auto",
+              p: 4,
+              backgroundColor: "#fff",
+              borderRadius: 2,
+            }}
+          >
+            <Box className="flex items-center justify-between">
+              <Typography
+                variant="h6"
+                sx={{ fontSize: "20px", fontWeight: "700" }}
+                className="text-[#333333]"
+              >
+                Logging out?
+              </Typography>
+              <FontAwesomeIcon
+                onClick={() => setOpen3(false)}
+                className="text-[#39434d] cursor-pointer px-3 shadow transition  py-2 text-2xl border text-center rounded-full"
+                icon={faXmark}
+              />
+            </Box>
+            <Typography sx={{ fontSize: "16px", marginTop: "35px" }}>
+              Thanks for stopping by. See you again soon!
+            </Typography>
+            <Divider sx={{ my: 3 }} />
+
+            <Box className="justify-end flex">
+              <Typography
+                className="transform rounded border transition-transform duration-400 hover:scale-105"
+                onClick={() => setOpen3(false)}
+                variant="contained"
+                sx={{
+                  paddingX: "15px",
+                  paddingY: "8px",
+                  "&:hover": {
+                    backgroundColor: "#FDF2F7",
+                  },
+                }}
+              >
+                Cancel
+              </Typography>
+              <Typography
+                className="transform rounded transition-transform duration-400 hover:scale-105"
+                onClick={handleLogout}
+                variant="contained"
+                sx={{
+                  marginLeft: "8px",
+                  paddingX: "15px",
+                  paddingY: "8px",
+                  color: "#fff",
+                  border: "1px solid #e21b70",
+                  background: "#e21b70",
+                  textTransform: "capitalize",
+                  fontSize: "18px",
+                  "&:hover": {
+                    backgroundColor: "#9d0a48",
+                  },
+                }}
+              >
+                Logout
+              </Typography>
+            </Box>
+          </Box>
+        </Modal>
+
+        {/* Modal 4 */}
+        <Modal
+          keepMounted
+          open={open4}
+          onClose={() => setOpen4(false)}
+          aria-labelledby="keep-mounted-modal-title"
+          aria-describedby="keep-mounted-modal-description"
+        >
+          <Box sx={{
+            position: "absolute",
+            top: "18%",
+            left: "82%",
+            transform: "translate(-50%, -50%)",
+            width: 300,
+            bgcolor: "#f7f7f7",
+            boxShadow: 10,
+            outline: "none",
+            p: 2,
+            borderRadius: "10px",
+          }}>
+            {/* Profile Section */}
+            <Box className="flex items-center justify-start">
+              <FontAwesomeIcon className="text-[#39434d] ps-5" icon={faUser} />
+              <Typography
+                id="keep-mounted-modal-title"
+                variant="h6"
+                className="text-base ps-8 text-black"
+              >
+                Profile
+              </Typography>
+            </Box>
+
+            {/* Logout Section */}
+            <Box className="flex items-center justify-start mt-5">
+              <FontAwesomeIcon
+                className="text-[#39434d] ps-5"
+                icon={faArrowRightFromBracket}
+              />
+              <Typography
+                id="keep-mounted-modal-title"
+                variant="h6"
+                className="text-xl ps-8 text-black cursor-pointer"
+                onClick={() => {
+                  setOpen4(false);
+                  setOpen3(true);
+                }}
+              >
+                Logout
+              </Typography>
+            </Box>
+          </Box>
+        </Modal>
+
+        {/* Modal 2: Login/Signup */}
+        <Modal open={open2} onClose={() => setOpen2(false)}>
+          <Box
+            sx={{
+              width: 400,
+              margin: "50px auto",
+              p: 4,
+              backgroundColor: "#fff",
+              borderRadius: 2,
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{ fontSize: "28px", fontWeight: "500" }}
             >
               Welcome!
             </Typography>
-            {/* Close Icon */}
-            <FontAwesomeIcon
-              sx={{ color: "#e21b70" }}
-              className="text-pink-600 text-xl cursor-pointer"
-              icon={faXmark}
-              onClick={handleClose2}
-            />
-          </Box>
+            <Typography sx={{ fontSize: "16px", mt: 2 }}>
+              Sign up or log in to continue
+            </Typography>
 
-          <Typography
-            id="second-modal-description"
-            sx={{ fontSize: "16px", marginTop: "16px" }}
-            className="text-zinc-700"
-          >
-            Sign up or log in to continue
-          </Typography>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              {/* Username Field */}
+              <Controller
+                name="username"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Username"
+                    fullWidth
+                    sx={{ mt: 2, mb: 2 }}
+                    error={!!errors.username}
+                    helperText={errors.username?.message}
+                  />
+                )}
+              />
 
-          <TextField
-              label="Username"
-              fullWidth
-              variant="outlined"
-              sx={{ mt: 2, mb:2 }}
-            />
+              {/* Email Field */}
+              <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Email"
+                    fullWidth
+                    sx={{ mb: 2 }}
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
+                  />
+                )}
+              />
 
-             {/* Email Field */}
-          <TextField
-            label="Email"
-            fullWidth
-            variant="outlined"
-            sx={{ mb: 2 }}
-          />
+              {/* Password Field */}
+              <Controller
+                name="password"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Password"
+                    type="password"
+                    fullWidth
+                    sx={{ mb: 2 }}
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
+                  />
+                )}
+              />
 
-          {/* Password Field */}
-          <TextField
-            label="Password"
-            type="password"
-            fullWidth
-            variant="outlined"
-            sx={{ mb: 2 }}
-          />
-
-                <Button
-                variant="outlined"
-                size="small"
+              <Button
+                type="submit"
+                variant="contained"
+                fullWidth
                 sx={{
-                  color: "#39434d",
-                  border: "1px solid #39434d",
-                   textTransform: "Capitalize",
-                   fontSize:'18px',
+                  background: "#e21b70",
+                  textTransform: "capitalize",
                   "&:hover": {
-                    backgroundColor: "#eddee5",
-                    border:'none',
+                    backgroundColor: "#9d0a48",
                   },
                 }}
-               className="h-10 w-80 transform transition-transform duration-400"
               >
                 Log in
               </Button>
-             
               <Button
-                variant="outlined"
-                size="small"
+                type="submit"
+                variant="contained"
+                fullWidth
                 sx={{
-                  color: "#fff",
-                  border: "1px solid #e21b70",
-                  background:"#e21b70",
-                   textTransform: "capitalize",
-                   fontSize:'18px',
-                   marginTop:'10px',
+                  background: "#fff",
+                  color: "#39434d",
+                  marginTop: "6px",
+                  textTransform: "capitalize",
                   "&:hover": {
-                    backgroundColor: '#9d0a48',
+                    backgroundColor: "#FDF2F7",
                   },
                 }}
-                 className="h-10 w-80 transform transition-transform duration-400"
               >
-                Sign in
+                Sign up
               </Button>
-        </Box>
-      </Modal>
 
+              <Typography className="body2">Anmol</Typography>
+            </form>
+          </Box>
+        </Modal>
       </Box>
     </>
   );
