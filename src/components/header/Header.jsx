@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
+import { Link, Navigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -168,7 +169,10 @@ const Header = () => {
           sx={{ backgroundColor: "#fff" }}
         >
           <Toolbar className="container mx-auto">
-            <img src={Logo} alt="Logo" className="h-[11vh]" />
+          <Link to="/">
+          <img src={Logo} alt="Logo" className="h-[11vh]" />
+          </Link>
+            
 
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -410,7 +414,9 @@ const Header = () => {
                 variant="h6"
                 className="text-base ps-8 text-black"
               >
-                Profile
+                 <Link to="/profile" onClick={() => {
+                  setOpen4(false);
+                }}>Profile</Link>
               </Typography>
             </Box>
 
@@ -537,7 +543,7 @@ const Header = () => {
                 Sign up
               </Button>
 
-              <Typography className="body2">Anmol</Typography>
+              <Typography sx={{fontSize:'13px', paddingY:'15px', color:'#4d4d4d'}}>By signing up, you agree to our <span className=" underline hover:no-underline text-pink-600">Terms and Conditions and Privacy Policy.</span></Typography>
             </form>
           </Box>
         </Modal>

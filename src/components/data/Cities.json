@@ -1,0 +1,182 @@
+[
+  {
+    "id": "islamabad",
+    "name": "Islamabad",
+    "image": "https://images.deliveryhero.io/image/foodpanda/city-tile-pk/Islamabad.jpg?width=720",
+    "title": "Food and groceries delivery from Abbottabad’s best restaurants and shops"
+  },
+  {
+    "id": "karachi",
+    "name": "Karachi",
+    "image": "https://images.deliveryhero.io/image/foodpanda/city-tile-pk/Karachi.jpg?width=720",
+    "title": "Food and groceries delivery from Karachi’s best restaurants and shops"
+  },
+  {
+    "id": "lahore",
+    "name": "Lahore",
+    "image": "https://images.deliveryhero.io/image/foodpanda/city-tile-pk/Lahore.jpg?width=720",
+    "title": "Food and groceries delivery from Lahore’s best restaurants and shops"
+  },
+  {
+    "id": "faisalabad",
+    "name": "Faisalabad",
+    "image": "https://images.deliveryhero.io/image/foodpanda/city-tile-pk/Faisalabad.jpg?width=720",
+    "title": "Food and groceries delivery from Faisalabad’s best restaurants and shops"
+  },
+  {
+    "id": "rawalpindi",
+    "name": "Rawalpindi",
+    "image": "https://images.deliveryhero.io/image/foodpanda/city-tile-pk/Rawalpindi.jpg?width=720",
+    "title": "Food and groceries delivery from Rawalpindi’s best restaurants and shops"
+  },
+  {
+    "id": "abottabad",
+    "name": "Abottabad",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-Abottabad.jpg?width=720",
+    "title": "Food and groceries delivery from Abottabad’s best restaurants and shops"
+  },
+  {
+    "id": "bahawalpur",
+    "name": "Bahawalpur",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-Bahawalpur.jpg?width=720",
+    "title": "Food and groceries delivery from Bahawalpur’s best restaurants and shops"
+  },
+  {
+    "id": "dera-Ghazi-Khan",
+    "name": "Dera Ghazi Khan",
+    "image": "https://https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-DeraGhaziKhan.jpg?width=720",
+    "title": "Food and groceries delivery from Dera Ghazi Khan’s best restaurants and shops"
+  },
+  {
+    "id": "gujranwala",
+    "name": "Gujranwala",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-Gujranwala.jpg?width=720",
+    "title": "Food and groceries delivery from Gujranwala’s best restaurants and shops"
+  },
+  {
+    "id": "gujrat",
+    "name": "Gujrat",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-Gujrat.jpg.jpg?width=720",
+    "title": "Food and groceries delivery from Gujrat’s best restaurants and shops"
+  },
+  {
+    "id": "hyderabad",
+    "name": "Hyderabad",
+    "image": "https://images.deliveryhero.io/image/foodpanda/city-tile-pk/Hyderabad.jpg?width=720",
+    "title": "Food and groceries delivery from Hyderabad’s best restaurants and shops"
+  },
+  {
+    "id": "jhelum",
+    "name": "Jhelum",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-Jhelum.jpg?width=720",
+    "title": "Food and groceries delivery from Jhelum’s best restaurants and shops"
+  },
+  {
+    "id": "kamoke",
+    "name": "Kamoke",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-Kamoke.jpg?width=720",
+    "title": "Food and groceries delivery from Kamoke’s best restaurants and shops"
+  },
+  {
+    "id": "larkana",
+    "name": "Larkana",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-Larkana.jpg?width=720",
+    "title": "Food and groceries delivery from Larkana’s best restaurants and shops"
+  },
+  {
+    "id": "mangla",
+    "name": "Mangla",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-Mangla.jpg?width=720",
+    "title": "Food and groceries delivery from Mangla’s best restaurants and shops"
+  },
+  {
+    "id": "mardan",
+    "name": "Mardan",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-Mardan.jpg?width=720",
+    "title": "Food and groceries delivery from Mardan’s best restaurants and shops"
+  },
+  {
+    "id": "multan",
+    "name": "Multan",
+    "image": "https://images.deliveryhero.io/image/foodpanda/city-tile-pk/Multan.jpg?width=720",
+    "title": "Food and groceries delivery from Multan’s best restaurants and shops"
+  },
+  {
+    "id": "murree",
+    "name": "Murree",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-Murree.jpg?width=720",
+    "title": "Food and groceries delivery from Murree’s best restaurants and shops"
+  },
+  {
+    "id": "okara",
+    "name": "Okara",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-Okara.jpg?width=720",
+    "title": "Food and groceries delivery from Okara’s best restaurants and shops"
+  },
+  {
+    "id": "pano-aqil",
+    "name": "Pano Aqil",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-PanoAqil.jpg?width=720",
+    "title": "Food and groceries delivery from Pano Aqil’s best restaurants and shops"
+  },
+  {
+    "id": "peshawar",
+    "name": "Peshawar",
+    "image": "https://images.deliveryhero.io/image/foodpanda/city-tile-pk/Peshawar.jpg?width=720",
+    "title": "Food and groceries delivery from Peshawar’s best restaurants and shops"
+  },
+  {
+    "id": "quetta",
+    "name": "Quetta",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-Quetta.jpg?width=720",
+    "title": "Food and groceries delivery from Quetta’s best restaurants and shops"
+  },
+  {
+    "id": "rahim-yar-khan",
+    "name": "Rahim Yar Khan",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-RahimYarKhan.jpg?width=720",
+    "title": "Food and groceries delivery from Rahim Yar Khan’s best restaurants and shops"
+  },
+  {
+    "id": "sadiqabad",
+    "name": "Sadiqabad",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-Sadiqabad.jpg?width=720",
+    "title": "Food and groceries delivery from Sadiqabad’s best restaurants and shops"
+  },
+  {
+    "id": "sahiwal",
+    "name": "Sahiwal",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-Sahiwal.jpg?width=720",
+    "title": "Food and groceries delivery from Sahiwal’s best restaurants and shops"
+  },
+  {
+    "id": "sargodha",
+    "name": "Sargodha",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-Sargodha.jpg?width=720",
+    "title": "Food and groceries delivery from Sargodha’s best restaurants and shops"
+  },
+  {
+    "id": "sheikhupura",
+    "name": "Sheikhupura",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-Sheikhupura.jpg.jpg?width=720",
+    "title": "Food and groceries delivery from Sheikhupura’s best restaurants and shops"
+  },
+  {
+    "id": "sialkot",
+    "name": "Sialkot",
+    "image": "https://images.deliveryhero.io/image/foodpanda/city-tile-pk/Sialkot.jpg?width=720",
+    "title": "Food and groceries delivery from Sialkot’s best restaurants and shops"
+  },
+  {
+    "id": "sukkur",
+    "name": "Sukkur",
+    "image": "https://images.deliveryhero.io/image/foodpanda/city-tile-pk/Sukkur.jpg?width=720",
+    "title": "Food and groceries delivery from Sukkur’s best restaurants and shops"
+  },
+  {
+    "id": "wah-cannt",
+    "name": "Wah Cannt",
+    "image": "https://images.deliveryhero.io/image/fd-pk/city-tile/city-tile-WahhCannt.jpg?width=720",
+    "title": "Food and groceries delivery from Wah Cannt’s best restaurants and shops"
+  }
+]
