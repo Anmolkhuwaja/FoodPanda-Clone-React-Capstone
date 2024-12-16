@@ -162,11 +162,12 @@ const Header = () => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1 }} className='shadow-2xl z-100 relative'>
         <AppBar
           position="static"
-          className="h-[11vh]"
-          sx={{ backgroundColor: "#fff" }}
+          className="h-[11vh] shadow-2xl z-10"
+          sx={{ backgroundColor: "#fff", zIndex: 10 }}
+
         >
           <Toolbar className="container mx-auto">
           <Link to="/">
