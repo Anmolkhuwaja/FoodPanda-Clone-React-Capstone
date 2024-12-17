@@ -8,6 +8,7 @@ import Error from "./components/error/Error";
 import Layout from "./components/layout/Layout";
 import Profile from "./components/profile/Profile";
 import Home from "./components/home/Home";
+import ProtectedRoute from "./components/protected-route/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <Profile />,
+        element: <ProtectedRoute>
+                    <Profile />
+                 </ProtectedRoute>,
       },
       {
         path: "*", // Catch-all route for undefined paths
