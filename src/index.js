@@ -9,6 +9,8 @@ import Layout from "./components/layout/Layout";
 import Profile from "./components/profile/Profile";
 import Home from "./components/home/Home";
 import ProtectedRoute from "./components/protected-route/ProtectedRoute";
+import City from "./components/city/City";
+import Cities from "./components/home/Cities";
 
 const router = createBrowserRouter([
   {
@@ -25,9 +27,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <ProtectedRoute>
-                    <Profile />
-                 </ProtectedRoute>,
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "cities",
+        element: <Cities />,
+      },
+      {
+        path: "city/:id",
+        element: <City />,
       },
       {
         path: "*", // Catch-all route for undefined paths

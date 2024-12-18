@@ -23,11 +23,20 @@ import {
   faUser,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { Button, Divider, Modal, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  Modal,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
 
 // Schema for Validation
 const schema = yup.object({
@@ -52,10 +61,12 @@ const Header = () => {
   // Handle functions for one modal & second & third
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [open2, setOpen2] = useState(false); // For Login/Signup Modal
-  const [open3, setOpen3] = useState(false); // For Logout Modal
-  const [open4, setOpen4] = useState(false); // For Logout Modal
-  const [user, setUser] = useState(null); // Store Logged-in User
+  const [open2, setOpen2] = useState(false);
+  const [open3, setOpen3] = useState(false);
+  const [open4, setOpen4] = useState(false);
+  const [open5, setOpen5] = useState(false);
+  const [user, setUser] = useState(null);
+  const [username, setUsername] = useState(user?.username || "");
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -146,6 +157,14 @@ const Header = () => {
     }
   }, []);
 
+  // Save updated user data to localStorage
+  const handleSave = () => {
+    const updatedUser = { ...user, username };
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+    setUser(updatedUser);
+    setOpen5(false);
+  };
+
   // Handle Signup/Login
   const onSubmit = (data) => {
     localStorage.setItem("user", JSON.stringify(data));
@@ -162,23 +181,24 @@ const Header = () => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }} className='shadow-2xl z-100 relative'>
+      <Box sx={{ flexGrow: 1 }} className="shadow-2xl z-100 relative">
         <AppBar
           position="static"
           className="h-[11vh] shadow-2xl z-10"
           sx={{ backgroundColor: "#fff", zIndex: 10 }}
-
         >
           <Toolbar className="container mx-auto">
-          <Link to="/">
-          <img src={Logo} alt="Logo" className="h-[11vh]" />
-          </Link>
-            
+            <Link to="/">
+              <img src={Logo} alt="Logo" className="h-[11vh]" />
+            </Link>
 
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               {!user ? (
                 <>
+                  <Typography>
+                    You must be logged in to access your profile.
+                  </Typography>
                   <Button
                     onClick={() => setOpen2(true)}
                     variant="outlined"
@@ -236,6 +256,8 @@ const Header = () => {
                 </Box>
               )}
             </Box>
+
+                {/* Icons */}
             <Box>
               <IconButton
                 size="large"
@@ -292,17 +314,20 @@ const Header = () => {
           aria-labelledby="keep-mounted-modal-title"
           aria-describedby="keep-mounted-modal-description"
         >
-          <Box sx={{
-             position: "absolute",
-             top: "15%",
-             left: "88%",
-             transform: "translate(-50%, -50%)",
-             width: 130,
-             bgcolor: "#f7f7f7",
-             boxShadow: 20,
-             p: 2,
-             borderRadius: "16px",
-          }} className="flex items-center justify-between">
+          <Box
+            sx={{
+              position: "absolute",
+              top: "15%",
+              left: "88%",
+              transform: "translate(-50%, -50%)",
+              width: 130,
+              bgcolor: "#f7f7f7",
+              boxShadow: 20,
+              p: 2,
+              borderRadius: "16px",
+            }}
+            className="flex items-center justify-between"
+          >
             <Typography
               id="keep-mounted-modal-title"
               variant="h6"
@@ -395,18 +420,20 @@ const Header = () => {
           aria-labelledby="keep-mounted-modal-title"
           aria-describedby="keep-mounted-modal-description"
         >
-          <Box sx={{
-            position: "absolute",
-            top: "18%",
-            left: "82%",
-            transform: "translate(-50%, -50%)",
-            width: 300,
-            bgcolor: "#f7f7f7",
-            boxShadow: 10,
-            outline: "none",
-            p: 2,
-            borderRadius: "10px",
-          }}>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "18%",
+              left: "82%",
+              transform: "translate(-50%, -50%)",
+              width: 300,
+              bgcolor: "#f7f7f7",
+              boxShadow: 10,
+              outline: "none",
+              p: 2,
+              borderRadius: "10px",
+            }}
+          >
             {/* Profile Section */}
             <Box className="flex items-center justify-start">
               <FontAwesomeIcon className="text-[#39434d] ps-5" icon={faUser} />
@@ -414,10 +441,12 @@ const Header = () => {
                 id="keep-mounted-modal-title"
                 variant="h6"
                 className="text-base ps-8 text-black"
-              >
-                 <Link to="/profile" onClick={() => {
+                onClick={() => {
                   setOpen4(false);
-                }}>Profile</Link>
+                  setOpen5(true);
+                }}
+              >
+                Profile
               </Typography>
             </Box>
 
@@ -544,8 +573,81 @@ const Header = () => {
                 Sign up
               </Button>
 
-              <Typography sx={{fontSize:'13px', paddingY:'15px', color:'#4d4d4d'}}>By signing up, you agree to our <span className=" underline hover:no-underline text-pink-600">Terms and Conditions and Privacy Policy.</span></Typography>
+              <Typography
+                sx={{ fontSize: "13px", paddingY: "15px", color: "#4d4d4d" }}
+              >
+                By signing up, you agree to our{" "}
+                <span className=" underline hover:no-underline text-pink-600">
+                  Terms and Conditions and Privacy Policy.
+                </span>
+              </Typography>
             </form>
+          </Box>
+        </Modal>
+
+        {/* Modal 5: Profile */}
+        <Modal open={open5} onClose={() => setOpen5(false)}>
+          <Box className="!container mx-auto">
+            {/* Modal dialog */}
+            <Dialog
+              open={open5}
+              onClose={() => setOpen5(false)}
+              fullWidth
+              maxWidth="sm"
+            >
+              <DialogTitle>My Profile</DialogTitle>
+              <DialogContent>
+                <Box className="flex flex-col space-y-8 justify-center">
+                  <TextField
+                    size="small"
+                    label="Your full name"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    className="w-full"
+                    variant="outlined"
+                  />
+                  <TextField
+                    size="small"
+                    label="Your email"
+                    value={user?.email || ""}
+                    className="w-full"
+                    variant="outlined"
+                    disabled
+                  />
+                </Box>
+              </DialogContent>
+              <DialogActions>
+                <Button
+                  variant="contained"
+                  sx={{
+                    background: "#e21b70",
+                    textTransform: "capitalize",
+                    fontWeight: "500",
+                    "&:hover": {
+                      backgroundColor: "#9d0a48",
+                    },
+                  }}
+                  onClick={handleSave}
+                >
+                  Save
+                </Button>
+                <Typography
+                  className="transform rounded border cursor-pointer transition-transform duration-400 hover:scale-105"
+                  onClick={() => setOpen5(false)}
+                  variant="contained"
+                  sx={{
+                    paddingX: "10px",
+                    paddingY: "8px",
+                    marginRight: "18px",
+                    "&:hover": {
+                      backgroundColor: "#FDF2F7",
+                    },
+                  }}
+                >
+                  Cancel
+                </Typography>
+              </DialogActions>
+            </Dialog>
           </Box>
         </Modal>
       </Box>
