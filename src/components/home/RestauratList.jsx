@@ -9,20 +9,18 @@ const RestauratList = () => {
       You prepare the food, we handle the rest
       </Typography>
 
-
       <Box className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-[3%]">
         <img
           src={HeroImg}
           className="w-auto max-w-[100%] absolute h-auto md:h-[40vh] lg:h-full lg:w-auto object-cover lg:object-contain"
           style={{
-            top: "108%",
+            top: "103%",
             left: 0,
-            marginTop: "20px",
           }}
           alt="Hero image"
         />
 
-        <Box className="bg-white lg:top-[232px] sm:top-[30px] md:top-[12.85rem] lg:w-[90%] sm:w-[60%] md:w-[45%] lg:h-[55vh] md:h-[45vh] shadow-xl p-8 lg:ms-24 md:ms-24 rounded-[16px] relative">
+        <Box className="bg-white lg:top-[222px] sm:top-[30px] md:top-[12.85rem] lg:w-[90%] sm:w-[60%] md:w-[45%] lg:h-[55vh] md:h-[45vh] shadow-xl p-8 lg:ms-24 md:ms-24 rounded-[16px] relative">
           <Typography variant="h6" className="!font-bold">
             List your restaurant or shop on foodpanda
           </Typography>

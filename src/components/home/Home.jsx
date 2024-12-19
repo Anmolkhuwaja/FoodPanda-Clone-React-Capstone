@@ -11,6 +11,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import RestauratList from "./RestauratList";
 import Cities from "./Cities";
+import DownloadBanner from "./DownloadBanner";
+import BusinessLunchBanner from "./BusinessLunchBanner";
+import FAQSection from "./FAQSection";
 
 const Home = () => {
   return (
@@ -19,7 +22,7 @@ const Home = () => {
         <Box className="max-w-[1370px] mx-auto px-0 sm:px-0 lg:px-0">
           <Box className="flex flex-col lg:flex-row items-center lg:items-start">
             {/* Input Section */}
-            <Box className="lg:basis-[55%] lg:ps-20 flex flex-col justify-center space-y-6 mb-8 lg:mb-0">
+            <Box className="lg:basis-[55%] lg:ps-20 flex flex-col justify-center space-y-6 mb-8 lg:mb-0 mt-10 sm:mt-30 md:mt-30 lg:mt-30">
               <Typography className="!text-[24px] sm:!text-[30px] lg:!text-[40px] !mt-10 sm:!mt-30 lg:!mt-40 !text-[#333333] !font-bold !font-sans leading-tight px-3">
                 It's the food and groceries you love, delivered
               </Typography>
@@ -99,6 +102,9 @@ const Home = () => {
       </Box>
       <RestauratList />
       <Cities />
+      <DownloadBanner />
+      <BusinessLunchBanner />
+      <FAQSection />
     </>
   );
 };
