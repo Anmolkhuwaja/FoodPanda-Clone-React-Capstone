@@ -180,7 +180,7 @@ const Header = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 2 }}>
       <AppBar
         position="fixed"
         className="h-[11vh]"
@@ -195,52 +195,43 @@ const Header = () => {
           <Box
             sx={{
               display: "flex",
-              flexDirection: { xs: "column", md: "row" },
-              gap: { xs: 2, md: 4 },
+              flexDirection: { xs: "row", md: "row" },
+              gap: { xs: 1, md: 1 },
             }}
           >
             {!user ? (
               <>
                 <Typography
                   sx={{
-                    fontSize: { xs: "12px", sm: "14px", md: "16px" }, // Adjust font size for responsiveness
-                    textAlign: { xs: "center", md: "left" }, // Center-align text on smaller screens
+                    fontSize: { xs: "12px", sm: "14px", md: "16px" },
+                    textAlign: { xs: "center", md: "left" },
                   }}
                 >
                   You must be logged in to access your profile.
                 </Typography>
-                <Button
+
+                <button
                   onClick={() => setOpen2(true)}
-                  variant="outlined"
-                  className="transform transition-transform duration-400 hover:scale-105"
-                  sx={{
-                    color: "#39434d",
-                    border: "1px solid #39434d",
-                    textTransform: "capitalize",
-                    width: { xs: "100%", md: "auto" }, // Full width on mobile
-                    padding: { xs: "8px", md: "10px 20px" }, // Adjust padding
-                  }}
+                  className="transform transition-transform duration-400 hover:scale-105 
+             text-[#39434d] border border-[#39434d] 
+             capitalize w-[40%] md:w-[35%] text-base 
+             px-0 md:px-[4px] rounded-md lg:px-[0px] lg:py-[10px] 
+             tablet:px-[4px] tablet:py-[6px]"
                 >
                   Log in
-                </Button>
-                <Button
+                </button>
+
+                <button
                   onClick={() => setOpen2(true)}
-                  variant="outlined"
-                  className="transform transition-transform duration-400 hover:scale-105"
-                  sx={{
-                    color: "#fff",
-                    border: "1px solid #e21b70",
-                    background: "#e21b70",
-                    textTransform: "capitalize",
-                    width: { xs: "100%", md: "auto" }, // Full width on mobile
-                    padding: { xs: "8px", md: "10px 20px" }, // Adjust padding
-                    "&:hover": {
-                      backgroundColor: "#9d0a48",
-                    },
-                  }}
+                  className="transform transition-transform duration-400 hover:scale-105 
+                    text-white bg-[#e21b70] border border-[#e21b70] 
+                    capitalize w-[40%] rounded-md md:w-[37%] 
+                    px-[0px] md:px-[4px] lg:px-[0px] md:py-[10px] 
+                    tablet:px-[4px] tablet:py-[6px] 
+                    hover:bg-[#9d0a48]"
                 >
                   Sign up
-                </Button>
+                </button>
               </>
             ) : (
               <Box className="flex items-center justify-center">

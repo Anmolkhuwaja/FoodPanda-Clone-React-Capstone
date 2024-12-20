@@ -1,4 +1,4 @@
-import { Divider, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 import React from 'react'
 
 const FAQSection = () => {
@@ -57,7 +57,7 @@ const faqData = [
   ];
 
   return (
-    <div className='mt-[25%] px-28'>
+    <div className='lg:mt-[25%] md:mt-[45%] mt-[55%] lg:px-28 px-4'>
       {/* Header Section */}
       <Typography variant="" className=" text-[#333333] !text-[30px] !font-bold">
         Order food and groceries online from the best restaurants and shops on foodpanda
@@ -74,12 +74,18 @@ const faqData = [
         What's new?
       </Typography>
 
-      <pre className=" text-gray-500 text-base mt-4">
-        <span className='text-[#ef3391] !font-bold'>✓</span> Wide variety of restaurants and shops, an abundance of cuisines & products. <br />
-        <span className='text-[#ef3391] !font-bold'>✓</span> High quality delivery service. <br />
-        <span className='text-[#ef3391] !font-bold'>✓</span> Live chat feature to give App users instant help when they need it. <br />
-        <span className='text-[#ef3391] !font-bold'>✓</span> NEW: foodpanda grocery delivery! Discover the best shops, pharmacies, bakeries and more near you.
-      </pre>
+      <Box className="!pr-0 md:!pr-0 md:!w-full !w-[100%] overflow-hidden">
+  <pre className="text-gray-500 text-base mt-4 pr-5 sm:pr-0 md:!w-full !w-[100%] sm:w-auto lg:mr-30 md:mr-30 break-words sm:break-normal">
+    <span className="text-[#ef3391] !font-bold">✓</span> Wide variety of restaurants and shops, an abundance of cuisines & products. <br />
+    <span className="text-[#ef3391] !font-bold">✓</span> High quality delivery service. <br />
+    <span className="text-[#ef3391] !font-bold">✓</span> Live chat feature to give App users instant help when they need it. <br />
+    <span className="text-[#ef3391] !font-bold">✓</span> NEW: foodpanda grocery delivery! Discover the best shops, <br /> pharmacies, bakeries and more near you.
+  </pre>
+</Box>
+
+
+
+
 
       <Divider className='!mt-4 w-11/13 border-t-gray-200'/>
 

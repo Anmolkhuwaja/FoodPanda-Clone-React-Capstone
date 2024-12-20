@@ -4,9 +4,7 @@ import { Link } from "react-router-dom";
 import Logoo from "../../assets/Logo image.png";
 import Delivery from "../../assets/delivery hero.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import {
-  faFacebook,
   faFacebookF,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
@@ -22,7 +20,7 @@ const Footer = () => {
         >
           <Typography
             variant="body2"
-            className="!text-[20px] !ms-24"
+            className="!text-[14px] md:!text-[20px] lg:!ms-28 md:!ms-10 ms-2 md:px-0 lg:px-0 px-2"
             color="textSecondary"
             align="start"
           >
@@ -74,11 +72,11 @@ const Footer = () => {
         </Box>
 
         <section className="my-6">
-          <Box className="flex flex-wrap justify-between space-x-6">
+          <Box className="flex md:flex-row flex-col gap-3 md:justify-between md:text-start text-center justify-center space-x-6">
             <Typography
               variant="body2"
               color="textSecondary"
-              className="px-6 sm:px-12 lg:px-24 !font-bold text-center lg:text-left"
+              className=" lg:px-24 !font-bold text-center md:ps-4"
             >
               © foodpanda
             </Typography>
@@ -89,7 +87,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Press
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -100,7 +98,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   pandapay Terms and Conditions
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -111,7 +109,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Security
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -122,7 +120,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Careers
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -133,7 +131,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Cashback Terms and Conditions
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -144,7 +142,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Partner with Us
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -155,7 +153,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   All cities
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -166,7 +164,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16" 
                 >
                   pandapro - Monthly Subscription Programme
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -177,7 +175,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Ramzan deals Areas delivered in Lahore
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -188,7 +186,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Areas delivered in Lahore
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -203,7 +201,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Help Center
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -214,7 +212,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Terms and Conditions
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -225,7 +223,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Download foodpanda Apps
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -236,7 +234,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Suggest a Restaurant
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -247,7 +245,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   All cuisines
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -258,7 +256,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   pandago - Request a Rider
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -269,7 +267,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Update on COVID-19 in Pakistan
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -280,7 +278,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   foodpanda Home Chef
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -291,7 +289,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Areas delivered in Karachi
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -302,7 +300,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Areas delivered in Islamabad
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -317,7 +315,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Refunds with pandapay
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -328,7 +326,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Privacy policy
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -339,7 +337,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Human rights policy
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -350,7 +348,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Corporate Customer
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -361,7 +359,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   foodpanda Magazine
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -372,7 +370,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   foodpanda Vouchers & Coupons
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -383,7 +381,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   pandamart Grocery Delivery
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -394,7 +392,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Become an Affiliate Areas delivered in Gujranwala
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -405,7 +403,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Areas delivered in Gujranwala
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -416,7 +414,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group"
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   Areas delivered in Peshawar
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -427,7 +425,7 @@ const Footer = () => {
         </section>
 
        <Box borderTop="1px solid #F0F0F0" py={0}>
-  <Box className="flex justify-between gap-6 px-14">
+  <Box className="flex flex-col md:flex-row justify-between gap-6 px-14">
     {/* Left Side */}
     <div className="flex justify-start gap-2 items-center w-1/2">
       <img
@@ -439,7 +437,7 @@ const Footer = () => {
         orientation="vertical"
         flexItem
         className="!mx-1 !mt-8"
-        sx={{ height: "50px" }} // Set the desired height here
+        sx={{ height: "50px" }}
       />
       <img
         src={Delivery}
@@ -449,7 +447,7 @@ const Footer = () => {
     </div>
 
     {/* Right Side */}
-    <Box className="flex gap-4 w-1/2 justify-end mt-10">
+    <Box className="flex gap-4 w-1/2 md:justify-end justify-center md:ms-0 ms-20 md:mt-10">
       <FontAwesomeIcon
         icon={faInstagram}
         className="text-[24px] text-[#575a5d] border border-[#91969b] p-2 bg-white rounded-full 

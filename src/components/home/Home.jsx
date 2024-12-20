@@ -23,7 +23,7 @@ const Home = () => {
           <Box className="flex flex-col lg:flex-row items-center lg:items-start">
             {/* Input Section */}
             <Box className="lg:basis-[55%] lg:ps-20 flex flex-col justify-center space-y-6 mb-8 lg:mb-0 mt-10 sm:mt-30 md:mt-30 lg:mt-30">
-              <Typography className="!text-[24px] sm:!text-[30px] lg:!text-[40px] !mt-10 sm:!mt-30 lg:!mt-40 !text-[#333333] !font-bold !font-sans leading-tight px-3">
+              <Typography className="!text-[24px] sm:!text-[30px] lg:!text-[40px] md:!mt-32 !mt-10 sm:!mt-30 lg:!mt-40 !text-[#333333] !font-bold !font-sans leading-tight px-3">
                 It's the food and groceries you love, delivered
               </Typography>
               <Box className="bg-white py-4 px-5 rounded-lg shadow-xl flex flex-col sm:flex-row items-center sm:space-x-4 space-y-4 sm:space-y-0">
@@ -35,15 +35,15 @@ const Home = () => {
                   variant="outlined"
                   InputProps={{
                     classes: {
-                      input: "placeholder:text-[5px] sm:placeholder:text-[5px]", // Adjust placeholder font size
+                      input: "placeholder:text-[5px] sm:placeholder:text-[1px]",
                     },
                     endAdornment: (
                       <InputAdornment position="end">
                         <FontAwesomeIcon
                           icon={faLocationCrosshairs}
-                          className="text-2xl text-pink-700"
+                          className="text-2xl text-pink-700 !ps-0 sm:!ps-3 hidden sm:block"
                         />
-                        <span className="text-base ps-5 font-medium text-slate-700">
+                        <span className="text-base sm:ps-5 font-medium text-slate-700">
                           Locate me
                         </span>
                       </InputAdornment>
