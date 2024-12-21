@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
-// import { Provider } from "react-redux";
 import App from "./App";
 import "./index.css";
 import Error from "./components/error/Error";
@@ -29,7 +28,7 @@ const router = createBrowserRouter([
         path: "/profile",
         element: (
           <ProtectedRoute>
-            <Profile />
+            <Profile component={Profile} />
           </ProtectedRoute>
         ),
       },

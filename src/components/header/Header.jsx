@@ -5,12 +5,10 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
 import Logo from "../../assets/Logo image.png";
-import Menu from "@mui/material/Menu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Profile from '../profile/Profile';
 import {
-  faBell,
   faCircleCheck,
   faHeart,
 } from "@fortawesome/free-regular-svg-icons";
@@ -18,17 +16,13 @@ import {
   faAngleDown,
   faArrowRightFromBracket,
   faBagShopping,
-  faEllipsisVertical,
   faGlobe,
   faUser,
+  faUserCheck,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   Divider,
   Modal,
   TextField,
@@ -37,6 +31,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import MobileDrawer from "./MobileDrawer";
 
 // Schema for Validation
 const schema = yup.object({
@@ -60,85 +55,18 @@ const Header = () => {
 
   // Handle functions for one modal & second & third
   const handleOpen = () => setOpen(true);
+  const [drawer, setDrawer] = useState(false);
   const handleClose = () => setOpen(false);
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
-  const [open5, setOpen5] = useState(false);
+  // const [open5, setOpen5] = useState(false);
   const [user, setUser] = useState(null);
-  const [username, setUsername] = useState(user?.username || "");
 
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+  const toggleDrawer = (newOpen) => () => {
+    setDrawer(newOpen);
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={0} color="error">
-            <FontAwesomeIcon icon={faBell} />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={0} color="error">
-            <FontAwesomeIcon icon={faBell} />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <FontAwesomeIcon icon={faBell} />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
 
   // React Hook Form setup
   const {
@@ -149,21 +77,13 @@ const Header = () => {
     resolver: yupResolver(schema),
   });
 
-  // Check local storage on component mount
-  useEffect(() => {
-    const savedUser = JSON.parse(localStorage.getItem("user"));
-    if (savedUser) {
-      setUser(savedUser);
-    }
-  }, []);
-
-  // Save updated user data to localStorage
-  const handleSave = () => {
-    const updatedUser = { ...user, username };
-    localStorage.setItem("user", JSON.stringify(updatedUser));
-    setUser(updatedUser);
-    setOpen5(false);
-  };
+    // Check for user in localStorage on page load
+    useEffect(() => {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+    }, []);
 
   // Handle Signup/Login
   const onSubmit = (data) => {
@@ -188,13 +108,17 @@ const Header = () => {
       >
         <Toolbar className="container mx-auto">
           <Link to="/">
-            <img src={Logo} alt="Logo" className="h-[11vh] ml-4 md:ml-0" />
+            <img
+              src={Logo}
+              alt="Logo"
+              className="md:h-[10vh] h-[9vh] ml-14 md:!mt-0 !mt-2 items-center md:ml-7"
+            />
           </Link>
 
           <Box sx={{ flexGrow: 1 }} />
           <Box
             sx={{
-              display: "flex",
+              display: { xs: "none", sm: "flex" },
               flexDirection: { xs: "row", md: "row" },
               gap: { xs: 1, md: 1 },
             }}
@@ -207,14 +131,13 @@ const Header = () => {
                     textAlign: { xs: "center", md: "left" },
                   }}
                 >
-                  You must be logged in to access your profile.
                 </Typography>
 
                 <button
                   onClick={() => setOpen2(true)}
                   className="transform transition-transform duration-400 hover:scale-105 
              text-[#39434d] border border-[#39434d] 
-             capitalize w-[40%] md:w-[35%] text-base 
+             capitalize w-[40%] md:w-[85%] text-base 
              px-0 md:px-[4px] rounded-md lg:px-[0px] lg:py-[10px] 
              tablet:px-[4px] tablet:py-[6px]"
                 >
@@ -225,8 +148,8 @@ const Header = () => {
                   onClick={() => setOpen2(true)}
                   className="transform transition-transform duration-400 hover:scale-105 
                     text-white bg-[#e21b70] border border-[#e21b70] 
-                    capitalize w-[40%] rounded-md md:w-[37%] 
-                    px-[0px] md:px-[4px] lg:px-[0px] md:py-[10px] 
+                    capitalize w-[40%] rounded-md md:w-[87%] 
+                    px-[0px] md:px-[4px] lg:px-[0px] md:!py-[2px] 
                     tablet:px-[4px] tablet:py-[6px] 
                     hover:bg-[#9d0a48]"
                 >
@@ -239,7 +162,7 @@ const Header = () => {
                   onClick={() => setOpen3(true)}
                   sx={{ color: "#9d0a48" }}
                   className="text-gray-700 cursor-pointer text-xl"
-                  icon={faUser}
+                  icon={faUserCheck}
                 />
                 <Typography
                   className="ps-1"
@@ -259,6 +182,7 @@ const Header = () => {
                 />
               </Box>
             )}
+            
           </Box>
 
           {/* Icons */}
@@ -300,26 +224,38 @@ const Header = () => {
 
       <Box
         sx={{
-          display: { xs: "flex", md: "none", position: "fixed", zIndex: "9" },
+          display: { xs: "flex", sm: "none", position: "fixed", zIndex: "9" },
         }}
-        className="md:!ml-6 md:!mt-4"
+        className="!ml-2 -mt-2"
       >
         <IconButton
           size="large"
           aria-label="show more"
-          aria-controls={mobileMenuId}
           aria-haspopup="true"
-          onClick={handleMobileMenuOpen}
           color="inherit"
           className="!mt-4"
         >
           <FontAwesomeIcon
-            className="text-3xl md:text-5xl md:!-ml-4 md:!-mt-1"
-            icon={faEllipsisVertical}
+            className="!text-2xl md:!text-4xl ml-18 mt-2"
+            onClick={toggleDrawer(true)}
+            icon={faUser}
+          />
+          <MobileDrawer
+            open={drawer}
+            toggleDrawer={toggleDrawer}
+            user={user}
+            setOpen2={setOpen2}
+            setOpen3={setOpen3}
+            faUser={faUser}
+            setOpen4={setOpen4}
+            faAngleDown={faAngleDown}
+            handleLogout={handleLogout}
+            // setOpen5={setOpen5}
+            faArrowRightFromBracket={faArrowRightFromBracket}
           />
         </IconButton>
       </Box>
-      {renderMobileMenu}
+      {/* {renderMobileMenu} */}
 
       {/* Modal 1 */}
       <Modal
@@ -458,10 +394,10 @@ const Header = () => {
               className="text-base ps-8 text-black cursor-pointer"
               onClick={() => {
                 setOpen4(false);
-                setOpen5(true);
+                // setOpen3(true);
               }}
             >
-              Profile
+              <Link to="/profile">Profile</Link>
             </Typography>
           </Box>
 
@@ -597,71 +533,6 @@ const Header = () => {
         </Box>
       </Modal>
 
-      {/* Modal 5: Profile */}
-      <Modal open={open5} onClose={() => setOpen5(false)}>
-        <Box className="!container mx-auto">
-          {/* Modal dialog */}
-          <Dialog
-            open={open5}
-            onClose={() => setOpen5(false)}
-            fullWidth
-            maxWidth="sm"
-          >
-            <DialogTitle>My Profile</DialogTitle>
-            <DialogContent>
-              <Box className="flex flex-col space-y-8 justify-center">
-                <TextField
-                  size="small"
-                  label="Your full name"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="w-full"
-                  variant="outlined"
-                />
-                <TextField
-                  size="small"
-                  label="Your email"
-                  value={user?.email || ""}
-                  className="w-full"
-                  variant="outlined"
-                  disabled
-                />
-              </Box>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                variant="contained"
-                sx={{
-                  background: "#e21b70",
-                  textTransform: "capitalize",
-                  fontWeight: "500",
-                  "&:hover": {
-                    backgroundColor: "#9d0a48",
-                  },
-                }}
-                onClick={handleSave}
-              >
-                Save
-              </Button>
-              <Typography
-                className="transform rounded border cursor-pointer transition-transform duration-400 hover:scale-105"
-                onClick={() => setOpen5(false)}
-                variant="contained"
-                sx={{
-                  paddingX: "10px",
-                  paddingY: "8px",
-                  marginRight: "18px",
-                  "&:hover": {
-                    backgroundColor: "#FDF2F7",
-                  },
-                }}
-              >
-                Cancel
-              </Typography>
-            </DialogActions>
-          </Dialog>
-        </Box>
-      </Modal>
     </Box>
   );
 };
