@@ -10,6 +10,9 @@ import Home from "./components/home/Home";
 import ProtectedRoute from "./components/protected-route/ProtectedRoute";
 import City from "./components/city/City";
 import Cities from "./components/home/Cities";
+import Restaurant from "./components/restaurant/Restaurant";
+import store from "./app/Store";
+import { Provider } from "react-redux";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +31,7 @@ const router = createBrowserRouter([
         path: "/profile",
         element: (
           <ProtectedRoute>
-            <Profile component={Profile} />
+            <Profile />
           </ProtectedRoute>
         ),
       },
@@ -41,6 +44,10 @@ const router = createBrowserRouter([
         element: <City />,
       },
       {
+        path: "restaurant/:id/:name",
+        element: <Restaurant />,
+      },
+      {
         path: "*", // Catch-all route for undefined paths
         element: <Error />,
       },
@@ -50,7 +57,7 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <Provider store={store}>
-  <RouterProvider router={router} />
-  // </Provider>
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
 );

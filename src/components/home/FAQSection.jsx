@@ -1,10 +1,9 @@
-import { Box, Divider, Typography } from '@mui/material';
-import React from 'react'
+import { Box, Divider, Typography } from "@mui/material";
+import React from "react";
 
 const FAQSection = () => {
-
-    // FAQ Data Array
-const faqData = [
+  // FAQ Data Array
+  const faqData = [
     {
       question: "How can I get foodpanda delivery?",
       answer:
@@ -57,47 +56,63 @@ const faqData = [
   ];
 
   return (
-    <div className='lg:mt-[25%] md:mt-[45%] mt-[55%] lg:px-28 px-4'>
+    <div className="lg:mt-[25%] md:mt-[45%] mt-[55%] lg:px-28 px-4">
       {/* Header Section */}
-      <Typography variant="" className=" text-[#333333] !text-[30px] !font-bold">
-        Order food and groceries online from the best restaurants and shops on foodpanda
+      <Typography
+        variant=""
+        className=" text-[#333333] !text-[30px] !font-bold"
+      >
+        Order food and groceries online from the best restaurants and shops on
+        foodpanda
       </Typography>
-      
+
       <Typography className="text-[#828482] !font-light !mt-4">
-        Are you hungry? Did you have a long and stressful day? Interested in getting a cheesy pizza delivered to your 
-        office or looking to avoid the weekly shop? Then foodpanda Pakistan is the right destination for you! 
-        foodpanda offers you a long and detailed list of the best restaurants and shops near you to help make your every day easier.
+        Are you hungry? Did you have a long and stressful day? Interested in
+        getting a cheesy pizza delivered to your office or looking to avoid the
+        weekly shop? Then foodpanda Pakistan is the right destination for you!
+        foodpanda offers you a long and detailed list of the best restaurants
+        and shops near you to help make your every day easier.
       </Typography>
 
       {/* What's New Section */}
-      <Typography variant="h5" className=" text-[#333333] !text-[30px] !font-bold !mt-8">
+      <Typography
+        variant="h5"
+        className=" text-[#333333] !text-[30px] !font-bold !mt-8"
+      >
         What's new?
       </Typography>
 
       <Box className="!pr-0 md:!pr-0 md:!w-full !w-[100%] overflow-hidden">
-  <pre className="text-gray-500 text-base mt-4 pr-5 sm:pr-0 md:!w-full !w-[100%] sm:w-auto lg:mr-30 md:mr-30 break-words sm:break-normal">
-    <span className="text-[#ef3391] !font-bold">✓</span> Wide variety of restaurants and shops, an abundance of cuisines & products. <br />
-    <span className="text-[#ef3391] !font-bold">✓</span> High quality delivery service. <br />
-    <span className="text-[#ef3391] !font-bold">✓</span> Live chat feature to give App users instant help when they need it. <br />
-    <span className="text-[#ef3391] !font-bold">✓</span> NEW: foodpanda grocery delivery! Discover the best shops, <br /> pharmacies, bakeries and more near you.
-  </pre>
-</Box>
+        <pre className="text-gray-500 text-base mt-4 pr-5 sm:pr-0 md:!w-full !w-[100%] sm:w-auto lg:mr-30 md:mr-30 break-words sm:break-normal">
+          <span className="text-[#ef3391] !font-bold">✓</span> Wide variety of
+          restaurants and shops, an abundance of cuisines & products. <br />
+          <span className="text-[#ef3391] !font-bold">✓</span> High quality
+          delivery service. <br />
+          <span className="text-[#ef3391] !font-bold">✓</span> Live chat feature
+          to give App users instant help when they need it. <br />
+          <span className="text-[#ef3391] !font-bold">✓</span> NEW: foodpanda
+          grocery delivery! Discover the best shops, <br /> pharmacies, bakeries
+          and more near you.
+        </pre>
+      </Box>
 
-
-
-
-
-      <Divider className='!mt-4 w-11/13 border-t-gray-200'/>
+      <Divider className="!mt-4 w-11/13 border-t-gray-200" />
 
       {/* FAQ Section */}
-      <Typography variant="h6" className=" text-[#333333] !text-[22px] !font-bold !mt-3">
+      <Typography
+        variant="h6"
+        className=" text-[#333333] !text-[22px] !font-bold !mt-3"
+      >
         Frequently Asked Questions
       </Typography>
 
       {/* FAQ Items */}
       {faqData.map((faq, index) => (
         <div key={index} className="mt-3">
-          <Typography variant="subtitle1" className="text-[#333333] !text-[18px] !font-bold !mt-3">
+          <Typography
+            variant="subtitle1"
+            className="text-[#333333] !text-[18px] !font-bold !mt-3"
+          >
             {faq.question}
           </Typography>
           <Typography className=" text-[#333333] !text-[16px] !font-light !mt-5">
@@ -107,11 +122,15 @@ const faqData = [
       ))}
 
       {/* Footer Message */}
-      <Typography variant="subtitle1" className=" text-[#333333] text-sm !font-bold !mt-4">
-        Order food and groceries online with foodpanda now and enjoy a great dining experience!
+      <Typography
+        variant="subtitle1"
+        className=" text-[#333333] text-sm !font-bold !mt-4"
+      >
+        Order food and groceries online with foodpanda now and enjoy a great
+        dining experience!
       </Typography>
     </div>
-  )
-}
+  );
+};
 
 export default FAQSection;

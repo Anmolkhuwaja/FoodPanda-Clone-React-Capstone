@@ -17,7 +17,8 @@ const Error = () => {
           We're deeply sorry, but something went wrong. Please try to refresh
           the page or
           <a href="#" class="text-pink-600 underline hover:no-underline ml-1">
-            Start <br />over.
+            Start <br />
+            over.
           </a>
         </Typography>
       </div>

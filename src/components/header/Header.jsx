@@ -7,11 +7,10 @@ import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import Logo from "../../assets/Logo image.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Profile from '../profile/Profile';
-import {
-  faCircleCheck,
-  faHeart,
-} from "@fortawesome/free-regular-svg-icons";
+// import Profile from '../profile/Profile';
+import { useDispatch, useSelector } from "react-redux";
+// import { setUser } from '../../slices/userSlice';
+import { faCircleCheck, faHeart } from "@fortawesome/free-regular-svg-icons";
 import {
   faAngleDown,
   faArrowRightFromBracket,
@@ -21,17 +20,12 @@ import {
   faUserCheck,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  Button,
-  Divider,
-  Modal,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Divider, Modal, TextField, Typography } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import MobileDrawer from "./MobileDrawer";
+// import { setUser } from "../../slices/userSlice";
 
 // Schema for Validation
 const schema = yup.object({
@@ -47,8 +41,6 @@ const schema = yup.object({
 });
 
 const Header = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   // Declare state for one & second modal
   const [open, setOpen] = React.useState(false);
@@ -60,13 +52,13 @@ const Header = () => {
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
-  // const [open5, setOpen5] = useState(false);
   const [user, setUser] = useState(null);
+  // const dispatch = useDispatch();
+  // const user = useSelector((state) => state.user);
 
   const toggleDrawer = (newOpen) => () => {
     setDrawer(newOpen);
   };
-
 
   // React Hook Form setup
   const {
@@ -77,13 +69,13 @@ const Header = () => {
     resolver: yupResolver(schema),
   });
 
-    // Check for user in localStorage on page load
-    useEffect(() => {
-      const storedUser = localStorage.getItem("user");
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
-      }
-    }, []);
+  // Check for user in localStorage on page load
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   // Handle Signup/Login
   const onSubmit = (data) => {
@@ -103,19 +95,20 @@ const Header = () => {
     <Box sx={{ flexGrow: 2 }}>
       <AppBar
         position="fixed"
-        className="h-[11vh]"
-        sx={{ backgroundColor: "#fff", zIndex: 9 }}
+        className="h-[10vh]"
+        sx={{ backgroundColor: "#fff", zIndex: 20 }}
       >
         <Toolbar className="container mx-auto">
           <Link to="/">
             <img
               src={Logo}
               alt="Logo"
-              className="md:h-[10vh] h-[9vh] ml-14 md:!mt-0 !mt-2 items-center md:ml-7"
+              className="md:h-[10vh] h-[8vh] ml-14 md:!mt-0 !mt-2 items-center md:ml-7"
             />
           </Link>
 
           <Box sx={{ flexGrow: 1 }} />
+
           <Box
             sx={{
               display: { xs: "none", sm: "flex" },
@@ -130,27 +123,23 @@ const Header = () => {
                     fontSize: { xs: "12px", sm: "14px", md: "16px" },
                     textAlign: { xs: "center", md: "left" },
                   }}
-                >
-                </Typography>
+                ></Typography>
 
                 <button
                   onClick={() => setOpen2(true)}
                   className="transform transition-transform duration-400 hover:scale-105 
-             text-[#39434d] border border-[#39434d] 
-             capitalize w-[40%] md:w-[85%] text-base 
-             px-0 md:px-[4px] rounded-md lg:px-[0px] lg:py-[10px] 
-             tablet:px-[4px] tablet:py-[6px]"
+             text-[#39434d] border font-medium border-[#39434d] 
+             capitalize text-base 
+             px-3 py-1 rounded-lg"
                 >
                   Log in
                 </button>
 
                 <button
                   onClick={() => setOpen2(true)}
-                  className="transform transition-transform duration-400 hover:scale-105 
+                  className="transform transition-transform ms-4 mr-4 duration-400 hover:scale-105 
                     text-white bg-[#e21b70] border border-[#e21b70] 
-                    capitalize w-[40%] rounded-md md:w-[87%] 
-                    px-[0px] md:px-[4px] lg:px-[0px] md:!py-[2px] 
-                    tablet:px-[4px] tablet:py-[6px] 
+                    capitalize  rounded-lg font-medium py-1 px-3 
                     hover:bg-[#9d0a48]"
                 >
                   Sign up
@@ -182,7 +171,6 @@ const Header = () => {
                 />
               </Box>
             )}
-            
           </Box>
 
           {/* Icons */}
@@ -233,10 +221,10 @@ const Header = () => {
           aria-label="show more"
           aria-haspopup="true"
           color="inherit"
-          className="!mt-4"
+          className="!-mt-[50px]"
         >
           <FontAwesomeIcon
-            className="!text-2xl md:!text-4xl ml-18 mt-2"
+            className="!text-2xl md:!text-4xl ml-2"
             onClick={toggleDrawer(true)}
             icon={faUser}
           />
@@ -532,7 +520,6 @@ const Header = () => {
           </form>
         </Box>
       </Modal>
-
     </Box>
   );
 };

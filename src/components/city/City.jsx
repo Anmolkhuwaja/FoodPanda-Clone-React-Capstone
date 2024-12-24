@@ -1,26 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import citiesData from "../../components/data/Cities.json"; // Import JSON data directly
+import { Link, useNavigate, useParams } from "react-router-dom";
+import citiesData from "../../components/data/Cities.json";
 import { Box, Button, Typography } from "@mui/material";
 import Panda from "../../assets/Hero home page.webp";
 import Card from "@mui/material/Card";
-import AA from "../../assets/aa.jpg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-regular-svg-icons";
+import restaurantsData from "../../components/data/RestaurantsData.json";
 
 const City = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [city, setCity] = useState(null);
+  const [restaurants, setRestaurants] = useState([]);
+  const [closeRestaurants, setCloseRestaurants] = useState([]);
 
   useEffect(() => {
     // Find city data from imported JSON
     const cityData = citiesData.find((city) => city.id === id);
     setCity(cityData);
+    window.scrollTo(0, 0);
   }, [id]);
+
+  useEffect(() => {
+    setRestaurants(restaurantsData.restaurants);
+  }, []);
+
+  useEffect(() => {
+    setCloseRestaurants(restaurantsData.closed_restaurants);
+  }, []);
 
   return (
     <>
-      <div className="lg:mt-[72px] lg:h-[41vh] md:h-[25vh] h-[20vh] md:mt-[112px] mt-[85px] bg-[#f7f7f7] ">
+      <div className="lg:!mt-[65px] lg:!h-[41vh] md:!h-[25vh] !h-[20vh] md:!mt-[100px] !mt-[70px] bg-[#f7f7f7] ">
         {city ? (
           <Box className="flex items-center lg:px-10 md:px-1">
             <Typography className="text-[#333333] lg:!text-[40px] md:!text-[25px] ps-5 !text-[12px] lg:ps-10 md:ps-1 !font-bold">
@@ -36,12 +46,12 @@ const City = () => {
           <p>City not found</p>
         )}
 
-        <Box className="lg:px-20 mt-6 md:px-1 flex">
+        <Box className="lg:px-20 mt-6 lg:mt-8 md:mt-8 ms-0 md:ms-10 lg:ms-2 md:px-1 flex">
           <Link
             to="/"
             variant="body2"
             color="inherit"
-            className="relative group md:ms-1 ms-2 underline font-medium text-[#39434d]"
+            className="relative group md:ms-1 ms-6 underline font-medium text-[#39434d]"
           >
             Homepage
             <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-300 ease-in-out group-hover:w-full group-hover:h-[3px]"></span>
@@ -55,69 +65,179 @@ const City = () => {
         </Box>
       </div>
 
-      <Box className="mt-16">
-        <Typography className="text-[#333333] !font-medium lg:px-20  lg:!text-[35px] md:!text-[25px]">
-          All restaurants
-        </Typography>
+      <Typography className="text-[#333333] !mt-16 md:!mt-16 lg:!mt-14 lg:!ms-14 md:!ps-6 ps-0 !ms-5 !font-medium lg:px-20 !text-[28px] lg:!text-[35px] md:!text-[25px]">
+        All restaurants
+      </Typography>
 
-        <Box className="d-flex gap-5 lg:px-20 md:px-8 px-4">
-          {/* {filteredProducts.length > 0 ? ( */}
-          {/* // filteredProducts.map((product, index) => ( */}
-          <Card sx={{ maxWidth: 360, cursor: "pointer" }}>
-            <img src={AA} className="img-fluid" alt={``} />
-            <Box className="flex justify-between items-center">
-              <Typography
-                gutterBottom
-                className="pt-2 ps-2 text-[20px] text-[#333333] !font-bold"
-                component="div"
-              >
-                {/* {product.name} */}
-                  Karachi Chaman Biryani
-              </Typography>
-
-              <Box className='flex items-center justify-center'>
-                <FontAwesomeIcon
-                  sx={{ color: "#9d0a48" }}
-                  className="text-gray-700 cursor-pointer text-sm"
-                  icon={faStar}
-                />
-                <Typography
-                gutterBottom
-                className="ps-1 !text-sm pt-1"
-                component="div"
-              >
-                {/* {product.name} */} 47
-              </Typography><span className="!text-sm ps-1 pr-2">(100+)</span>
-              </Box>
-            </Box>
-
-            <Typography
-              variant="body2"
-              className="ps-2"
-              sx={{ color: "text.secondary" }}
+      <Box className="mt-6 lg:px-14 md:px-6 px-4 py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5 w-full">
+        {restaurants.length > 0 ? (
+          restaurants.map((restaurant) => (
+            <Card
+              key={restaurant.id}
+              className="w-full cursor-pointer border border-gray-300 relative"
+              onClick={() =>
+                navigate(
+                  `/restaurant/${restaurant.id}/${restaurant.name
+                    .toLowerCase()
+                    .replace(/\s+/g, "-")}`
+                )
+              }
             >
-              {/* {product.desc} */} Anmol
-            </Typography>
-            <Box className="d-flex my-3 justify-content-between px-2 align-content-center">
-              {/* <Button size="small" sx={{ backgroundColor: "#ffde21" }} className="py-0 px-3 fw-bold text-black">
-                  BUY NOW
-                </Button> */}
-              {/* <Button
-                  onClick={() => cartHandler(product)}
-                  size="small"
-                  className="px-3 fw-bold text-white bg-black"
+              {/*Discount and Welcome Gift Boxes */}
+              <Box className="absolute top-2 left-2 bg-[#F2247B] px-3 py-1 rounded-lg z-10">
+                <Typography
+                  className="!text-[14px] font-medium text-white"
+                  component="p"
                 >
-                  Add to cart
-                </Button> */}
-            </Box>
-          </Card>
-          {/* ))
+                  10% off
+                </Typography>
+              </Box>
+
+              <Box className="absolute top-12 left-2 bg-[#F2247B] px-3 py-1 rounded-lg z-10">
+                <Typography className="!text-[14px] text-white" component="p">
+                  Welcome gift: free de...
+                </Typography>
+              </Box>
+
+              {/* Image Section */}
+              <Box className="relative h-[40vh] overflow-hidden">
+                <img
+                  src={restaurant.image}
+                  alt={restaurant.name}
+                  className="w-full h-full object-cover transition-transform duration-500 ease-in-out hover:scale-110"
+                />
+              </Box>
+
+              {/* Restaurant Info */}
+              <Box className="flex justify-between items-center">
+                <Typography
+                  gutterBottom
+                  className="pt-2 ps-2 text-[20px] text-[#333333] !font-bold"
+                  component="div"
+                >
+                  {restaurant.name}
+                </Typography>
+
+                <Box className="flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    className="w-4 text-sm cursor-pointer"
+                    fill="#ffb413"
+                    stroke="orange"
+                    strokeWidth="2"
+                  >
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                  </svg>
+                  <Typography
+                    gutterBottom
+                    className="ps-1 !text-sm pt-1"
+                    component="div"
+                  >
+                    {restaurant.rating}
+                  </Typography>
+                  <span className="!text-sm ps-1 pr-2">
+                    ({restaurant.reviews})
+                  </span>
+                </Box>
+              </Box>
+
+              {/* Additional Restaurant Info */}
+              <Typography
+                variant="body2"
+                className="ps-2 !mb-2"
+                sx={{ color: "text.secondary" }}
+              >
+                {restaurant.cuisine}
+              </Typography>
+            </Card>
+          ))
         ) : (
-          <Typography variant="h6" className="p-5">
-            No products found.
-          </Typography>
-        )} */}
-        </Box>
+          <Typography>No restaurants available.</Typography>
+        )}
+      </Box>
+
+      <Box className="mt-6 lg:px-14 md:px-6 px-4 py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5 w-full">
+        {closeRestaurants.length > 0 ? (
+          closeRestaurants.map((restaurant) => (
+            <Card
+              key={restaurant.id}
+              className="w-full cursor-pointer border border-gray-300 relative overflow-hidden"
+            >
+              <Box className="relative h-[40vh] overflow-hidden">
+                <Box className="absolute inset-0 bg-black opacity-50 z-10"></Box>
+                <img
+                  src={restaurant.image}
+                  alt={restaurant.name}
+                  className="w-full h-full object-cover transition-transform duration-500 ease-in-out transform origin-center hover:scale-110"
+                />
+              </Box>
+
+              {/* Centered Positioning for Discount and Welcome Gift Boxes */}
+              <Box className="absolute lg:top-28 md:top-44 top-36 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center z-10">
+                <Box className="lg:px-3 md:px-2 px-0 py-1 rounded-lg mb-1">
+                  <Typography
+                    className="!text-[16px] !font-semibold text-white"
+                    component="p"
+                  >
+                    {restaurant.status}
+                  </Typography>
+                </Box>
+                <Box className="bg-[#fff] px-3 py-1 rounded-lg transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-lg">
+                  <Typography
+                    className="!text-[14px] !font-bold text-[#F2247B] transition-colors duration-150 ease-in-out"
+                    component="p"
+                  >
+                    Order for later
+                  </Typography>
+                </Box>
+              </Box>
+
+              {/* Restaurant Info */}
+              <Box className="p-4">
+                <Box className="flex justify-between items-center">
+                  <Typography
+                    gutterBottom
+                    className="text-[20px] text-[#333333] !font-bold"
+                    component="div"
+                  >
+                    {restaurant.name}
+                  </Typography>
+
+                  <Box className="flex items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      className="w-4 text-sm cursor-pointer"
+                      fill="#ffb413"
+                      stroke="orange"
+                      strokeWidth="2"
+                    >
+                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                    </svg>
+                    <Typography
+                      gutterBottom
+                      className="ps-1 !text-sm pt-1"
+                      component="div"
+                    >
+                      {restaurant.rating}
+                    </Typography>
+                    <span className="!text-sm ps-1 pr-2">
+                      ({restaurant.reviews})
+                    </span>
+                  </Box>
+                </Box>
+
+                {/* Additional Restaurant Info */}
+                <Typography variant="body2" className="!mb-2 text-gray-600">
+                  {restaurant.cuisine}
+                </Typography>
+              </Box>
+            </Card>
+          ))
+        ) : (
+          <Typography>No restaurants available.</Typography>
+        )}
       </Box>
     </>
   );

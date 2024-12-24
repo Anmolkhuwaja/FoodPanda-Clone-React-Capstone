@@ -59,10 +59,7 @@ const MobileDrawer = (props) => {
                     <Box className="flex items-center justify-start mt-8 group relative">
                       <span className="absolute inset-0 mx-2 -ms-3 rounded-xl bg-[#ecdde4] opacity-0 group-hover:opacity-100 transition-all duration-300"></span>
                       <div className="flex items-center relative z-10">
-                        <FontAwesomeIcon
-                          className="text-black"
-                          icon={faEdit}
-                        />
+                        <FontAwesomeIcon className="text-black" icon={faEdit} />
                         <button
                           onClick={() => setOpen2(true)}
                           className="text-black text-xl !p-3 capitalize rounded-md"

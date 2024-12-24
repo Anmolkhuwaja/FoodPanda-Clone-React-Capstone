@@ -6,7 +6,7 @@ const RestauratList = () => {
   return (
     <>
       <Typography className="!text-[24px] sm:!text-[30px] lg:!text-[30px] !mt-10 sm:!mt-30 lg:!mt-30 !text-[#333333] !font-bold !font-sans leading-tight px-3 lg:pl-24">
-      You prepare the food, we handle the rest
+        You prepare the food, we handle the rest
       </Typography>
 
       <Box className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-[3%]">

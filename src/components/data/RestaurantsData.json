@@ -6,9 +6,11 @@
         "rating": 4.7,
         "reviews": "100+",
         "cuisine": "Pakistani",
-        "image": "https://images.deliveryhero.io/image/fd-pk/LH/omwm-listing.jpg?width=200&height=200",
+        "image": "https://images.deliveryhero.io/image/fd-pk/LH/omwm-listing.jpg?width=400&height=225",
         "details": {
           "deliveryInfo": {
+            "image": "https://images.deliveryhero.io/image/fd-pk/LH/omwm-listing.jpg?width=200&height=200",
+            "type": "Pakistani ⁃ Biryani ⁃ Pulao",
             "delivery": "Free delivery",
             "priceRange": "Rs. 199",
             "minOrder": "Rs. 249",
@@ -111,14 +113,13 @@
         }
       },
 
-
       {
-        "id": "omwm2",
-        "name": "Lahore Fried Chicken",
-        "rating": 4.5,
-        "reviews": "200+",
-        "cuisine": "Fast Food",
-        "image": "https://example.com/lahore-fried-chicken.jpg",
+        "id": "churn",
+        "name": "Churn Station-F11",
+        "rating": 4.9,
+        "reviews": "21",
+        "cuisine": "Desserts",
+        "image": "https://images.deliveryhero.io/image/fd-pk/LH/uhc6-listing.jpg?width=400&height=225",
         "details": {
           "deliveryInfo": {
             "delivery": "Free delivery",
@@ -194,13 +195,14 @@
           }
         }
       },
+
       {
-        "id": "omwm3",
-        "name": "Tandoor Restaurant",
-        "rating": 4.8,
-        "reviews": "150+",
-        "cuisine": "Indian",
-        "image": "https://example.com/tandoor-restaurant.jpg",
+        "id": "pizza-bar",
+        "name": "Pizza Bar",
+        "rating": 4.9,
+        "reviews": "20",
+        "cuisine": "Fast Food",
+        "image": "https://images.deliveryhero.io/image/fd-pk/LH/tzk5-listing.jpg?width=400&height=225",
         "details": {
           "deliveryInfo": {
             "delivery": "Free delivery",
@@ -271,12 +273,12 @@
       },
 
       {
-        "id": "omwm2",
-        "name": "Lahore Fried Chicken",
-        "rating": 4.5,
-        "reviews": "200+",
-        "cuisine": "Fast Food",
-        "image": "https://example.com/lahore-fried-chicken.jpg",
+        "id": "buns",
+        "name": "Buns",
+        "rating": 4.7,
+        "reviews": "500+",
+        "cuisine": "Burgers",
+        "image": "https://images.deliveryhero.io/image/fd-pk/LH/xiqw-listing.jpg?width=400&height=225",
         "details": {
           "deliveryInfo": {
             "delivery": "Free delivery",
@@ -355,12 +357,12 @@
 
 
       {
-        "id": "omwm4",
-        "name": "The Pizza Place",
-        "rating": 4.6,
-        "reviews": "50+",
-        "cuisine": "Italian",
-        "image": "https://example.com/pizza-place.jpg",
+        "id": "doughjo-bakery-and-patisserie",
+        "name": "DoughJo Bakery & Patisserie",
+        "rating": 4.9,
+        "reviews": "500+",
+        "cuisine": "Cakes & Bakery",
+        "image": "https://images.deliveryhero.io/image/fd-pk/LH/byi4-listing.jpg?width=400&height=225",
         "details": {
           "deliveryInfo": {
             "delivery": "Free delivery",
@@ -424,13 +426,14 @@
           }
         }
       },
+
       {
-        "id": "omwm6",
-        "name": "Spicy Grill",
-        "rating": 4.4,
-        "reviews": "120+",
-        "cuisine": "BBQ",
-        "image": "https://example.com/spicy-grill.jpg",
+        "id": "v5fl",
+        "name": "Mian Foods-Dground",
+        "rating": 4.7,
+        "reviews": "5000+",
+        "cuisine": "Pakistani",
+        "image": "https://images.deliveryhero.io/image/fd-pk/LH/v5fl-listing.jpg?width=400&height=225",
         "details": {
           "deliveryInfo": {
             "delivery": "Free delivery",
@@ -499,6 +502,56 @@
           }
         }
       }
+    ],
+
+    "closed_restaurants": [
+      {
+      "name": "Grill Daddy",
+      "image": "https://images.deliveryhero.io/image/fd-pk/LH/yi03-listing.jpg?width=400&height=225",
+      "status": "Closed until Fri 09:33",
+      "cuisine": "Pakistani",
+      "rating": 4.9,
+      "reviews": "500+"
+      },
+      {
+        "name": "TBS-The BBQ Specialist",
+        "image": "https://images.deliveryhero.io/image/fd-pk/LH/mx1t-listing.jpg?width=400&height=225",
+        "status": "Closed until Fri 12:34",
+        "cuisine": "Pakistani",
+        "rating": 3.2,
+        "reviews": "300+"
+        },
+        {
+          "name": "Bait AI Sareed",
+          "image": "https://images.deliveryhero.io/image/fd-pk/LH/ftpo-listing.jpg?width=400&height=225",
+          "status": "Closed until Fri 10:00",
+          "cuisine": "Pakistani",
+          "rating": 6.1,
+          "reviews": "600+"
+          },
+          {
+            "name": "Schiff's Cuisine",
+            "image": "https://images.deliveryhero.io/image/fd-pk/LH/a8qg-listing.jpg?width=400&height=225",
+            "status": "Closed until Fri 13:00",
+            "cuisine": "Pakistani",
+            "rating": 3,
+            "reviews": "8"
+            },
+            {
+              "name": "Brownie Hub",
+              "image": "https://images.deliveryhero.io/image/fd-pk/LH/wfmk-listing.jpg?width=400&height=225",
+              "status": "Closed until Fri 09:33",
+              "cuisine": "Cakes & Bakery",
+              "rating": 4.8,
+              "reviews": "100+"
+              },
+              {
+                "name": "Shangrila Chinese Wok",
+                "image": "https://images.deliveryhero.io/image/fd-pk/LH/r7l4-listing.jpg?width=400&height=225",
+                "status": "Closed until Fri 12:53",
+                "cuisine": "Fast Food",
+                "rating": 4.7,
+                "reviews": "58"
+                }
     ]
   }
-  

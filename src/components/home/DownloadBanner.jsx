@@ -4,7 +4,7 @@ import MobileApps from "../../assets/foodpanda-Apps.webp";
 import QR from "../../assets/QR Code.png";
 import Apple from "../../assets/Applee.png";
 import Google from "../../assets/google-play.png";
-import GallerySVG from '../../assets/gallery.svg'
+import GallerySVG from "../../assets/gallery.svg";
 
 const DownloadBanner = () => {
   return (
@@ -53,7 +53,6 @@ const DownloadBanner = () => {
 
               {/* Google Play Button */}
               <Box className="flex bg-black w-[180px] md:w-[200px] lg:w-[50%] items-center border border-[white] rounded-md p-1">
-                {/* <img src={Google} className="w-[20%] rounded-2xl filter brightness-0 invert" alt="" /> */}
                 <img src={Google} className="w-[20%] rounded-md" alt="" />
                 <Box>
                   <Typography className="!text-[8px] md:!text-[10px] ps-2">
@@ -67,7 +66,11 @@ const DownloadBanner = () => {
 
               {/* AppGallery Button */}
               <Box className="flex bg-black w-[180px] md:w-[200px] lg:w-[50%] items-center border border-[white] rounded-md p-1">
-              <img src={GallerySVG} alt="Gallery" className="w-[22%] rounded-md" />
+                <img
+                  src={GallerySVG}
+                  alt="Gallery"
+                  className="w-[22%] rounded-md"
+                />
 
                 <Box>
                   <Typography className="!text-[8px] md:!text-[10px]">

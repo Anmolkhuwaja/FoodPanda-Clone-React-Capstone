@@ -4,10 +4,7 @@ import { Link } from "react-router-dom";
 import Logoo from "../../assets/Logo image.png";
 import Delivery from "../../assets/delivery hero.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebookF,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
+import { faFacebookF, faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 const Footer = () => {
   return (
@@ -164,7 +161,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16" 
+                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
                 >
                   pandapro - Monthly Subscription Programme
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -424,46 +421,41 @@ const Footer = () => {
           </Box>
         </section>
 
-       <Box borderTop="1px solid #F0F0F0" py={0}>
-  <Box className="flex flex-col md:flex-row justify-between gap-6 px-14">
-    {/* Left Side */}
-    <div className="flex justify-start gap-2 items-center w-1/2">
-      <img
-        src={Logoo}
-        alt="logo"
-        className="w-36 object-contain"
-      />
-      <Divider
-        orientation="vertical"
-        flexItem
-        className="!mx-1 !mt-8"
-        sx={{ height: "50px" }}
-      />
-      <img
-        src={Delivery}
-        alt="delivery"
-        className="w-36 object-contain"
-      />
-    </div>
+        <Box borderTop="1px solid #F0F0F0" py={0}>
+          <Box className="flex flex-col md:flex-row justify-between gap-6 px-14">
+            {/* Left Side */}
+            <div className="flex justify-start gap-2 items-center w-1/2">
+              <img src={Logoo} alt="logo" className="w-36 object-contain" />
+              <Divider
+                orientation="vertical"
+                flexItem
+                className="!mx-1 !mt-8"
+                sx={{ height: "50px" }}
+              />
+              <img
+                src={Delivery}
+                alt="delivery"
+                className="w-36 object-contain"
+              />
+            </div>
 
-    {/* Right Side */}
-    <Box className="flex gap-4 w-1/2 md:justify-end justify-center md:ms-0 ms-20 md:mt-10">
-      <FontAwesomeIcon
-        icon={faInstagram}
-        className="text-[24px] text-[#575a5d] border border-[#91969b] p-2 bg-white rounded-full 
+            {/* Right Side */}
+            <Box className="flex gap-4 w-1/2 md:justify-end justify-center md:ms-0 ms-20 md:mt-10">
+              <FontAwesomeIcon
+                icon={faInstagram}
+                className="text-[24px] text-[#575a5d] border border-[#91969b] p-2 bg-white rounded-full 
           transition-transform duration-200 ease-in-out 
           hover:scale-110 hover:bg-[#f4f8ff]"
-      />
-      <FontAwesomeIcon
-        icon={faFacebookF}
-        className="text-[22px] text-[#575a5d] border border-[#91969b] px-3 py-2 bg-white rounded-full 
+              />
+              <FontAwesomeIcon
+                icon={faFacebookF}
+                className="text-[22px] text-[#575a5d] border border-[#91969b] px-3 py-2 bg-white rounded-full 
         transition-transform duration-200 ease-in-out 
         hover:scale-110 hover:bg-[#f4f8ff]"
-      />
-    </Box>
-  </Box>
-</Box>
-
+              />
+            </Box>
+          </Box>
+        </Box>
       </footer>
     </>
   );
