@@ -6,16 +6,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBicycle,
   faCrown,
+  faFire,
+  faFireFlameCurved,
   faInfo,
   faInfoCircle,
   faMotorcycle,
   faPercentage,
+  faPlus,
   faShoppingBasket,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Restaurant = () => {
   const { id, name } = useParams();
   const [restaurant, setRestaurant] = useState(null);
+  const [activeTab, setActiveTab] = useState("Popular");
 
   useEffect(() => {
     const selectedRestaurant = restaurantsData.restaurants.find(
@@ -27,10 +31,15 @@ const Restaurant = () => {
   if (!restaurant) {
     return <Typography>Loading...</Typography>;
   }
+  restaurant.details.menu.categories.find(
+    (category) => category.name === "Rice"
+  );
+
+  const tabs = ["Popular", "Strong Pepsi Deals", "Rice", "Sides"];
 
   return (
     <>
-      <Box className="lg:px-20 mt-20 lg:mt-20 md:mt-32 ms-0 md:ms-10 lg:ms-2 md:px-1 flex items-center">
+      <Box className="lg:px-20 mt-20 lg:mt-20 md:mt-32 ms-0 md:ms-20 lg:ms-4 md:px-1 flex items-center">
         <Link
           to="/"
           variant="body2"
@@ -45,9 +54,9 @@ const Restaurant = () => {
         </Typography>
       </Box>
 
-      <Box className="flex">
+      <Box className="flex flex-col lg:ms-0 md:ms-16 ms-0 md:flex-row md:gap-6">
         {/* Restaurant Image */}
-        <Box className="ms-24 mt-5">
+        <Box className="lg:ms-24 md:ms ms-4 mt-5">
           <img
             src={restaurant.details.deliveryInfo.image}
             className="rounded-2xl"
@@ -61,7 +70,7 @@ const Restaurant = () => {
           <Typography className="!text-3xl ps-5 capitalize text-[#000] !font-bold !mt-4">
             {name}
           </Typography>
-          <Box className="flex items-center justify-center !mt-4 !ms-5">
+          <Box className="flex items-center justify-center !mt-4 md:!ms-5 -!ms-6">
             <FontAwesomeIcon
               className="text-black text-[15px]"
               icon={faMotorcycle}
@@ -122,12 +131,12 @@ const Restaurant = () => {
 
       <Divider className="!mt-6" />
 
-      <Typography className="text-[#333333] !mt-10 md:!mt-16 lg:!mt-8 lg:!ms-18 md:!ps-6 ps-0 !ms-16 !font-medium lg:px-20 !text-[24px] lg:!text-[25px] md:!text-[20px]">
+      <Typography className="text-[#333333] !mt-8 md:!mt-16 lg:!mt-8 lg:!ms-18 md:!ps-6 ps-0 !ms-16 !font-medium lg:px-20 !text-[24px] lg:!text-[25px] md:!text-[20px]">
         Available deals
       </Typography>
 
-      <Box className="flex">
-        <Box className="bg-[#f7f7f7] w-72 ms-20 px-2 py-5 rounded-lg hover:scale-105 hover:bg-[#e5e5e5] transition-all duration-300 relative">
+      <Box className="flex flex-col md:flex-row items-center justify-start md:mt-0 mt-4">
+        <Box className="bg-[#f7f7f7] w-72 md:ms-20 px-2 py-5 rounded-lg hover:scale-105 hover:bg-[#e5e5e5] transition-all duration-300 relative">
           <Box className="flex">
             <span className="bg-purple-700 px-1 py-1 text-white font-medium rounded-md !text-[12px]">
               <FontAwesomeIcon icon={faCrown} /> PRO
@@ -138,7 +147,7 @@ const Restaurant = () => {
             No min. order required. and special savings for pandapro members
           </Typography>
         </Box>
-        <Box className="bg-[#ffd7de] w-72 ms-8 px-2 py-5 rounded-lg hover:scale-105 hover:bg-[#e9afb9] transition-all duration-300 relative">
+        <Box className="bg-[#ffd7de] w-72 md:mt-0 mt-4 md:ms-8 px-2 py-5 rounded-lg hover:scale-105 hover:bg-[#e9afb9] transition-all duration-300 relative">
           <Box className="flex items-center">
             <span className="bg-pink-600 px-2 py-1 border !border-dashed text-white font-medium rounded-full !text-[12px]">
               <FontAwesomeIcon className="text-[16px]" icon={faPercentage} />
@@ -153,52 +162,220 @@ const Restaurant = () => {
 
       {/* Tabs  */}
       <Box className="mt-5">
+        {/* Tabs */}
         <Box className="h-[10vh]">
-
-        <div class="bg-white p-4 shadow">
-  <ul class="flex gap-6 justify-center text-center border-gray-300">
-    <li class="group relative cursor-pointer px-6 py-2 text-gray-700 hover:text-black font-medium transition-all">
-      <span class="absolute inset-0 bg-gray-200 opacity-0 group-hover:opacity-100 rounded-md transition-all"></span>
-      <span class="relative z-10">Popular 3</span>
-      <span class="absolute left-1/2 bottom-0 w-0 h-0.5 bg-black transition-all group-hover:w-full group-hover:left-0"></span>
-    </li>
-    <li class="group relative cursor-pointer px-6 py-2 text-gray-700 hover:text-black font-medium transition-all">
-      <span class="absolute inset-0 bg-gray-200 opacity-0 group-hover:opacity-100 rounded-md transition-all"></span>
-      <span class="relative z-10">Strong Pepsi Deals 3</span>
-      <span class="absolute left-1/2 bottom-0 w-0 h-0.5 bg-black transition-all group-hover:w-full group-hover:left-0"></span>
-    </li>
-    <li class="group relative cursor-pointer px-6 py-2 text-gray-700 hover:text-black font-medium transition-all">
-      <span class="absolute inset-0 bg-gray-200 opacity-0 group-hover:opacity-100 rounded-md transition-all"></span>
-      <span class="relative z-10">Rice 1</span>
-      <span class="absolute left-1/2 bottom-0 w-0 h-0.5 bg-black transition-all group-hover:w-full group-hover:left-0"></span>
-    </li>
-    <li class="group relative cursor-pointer px-6 py-2 text-gray-700 hover:text-black font-medium transition-all">
-      <span class="absolute inset-0 bg-gray-200 opacity-0 group-hover:opacity-100 rounded-md transition-all"></span>
-      <span class="relative z-10">Sides 3</span>
-      <span class="absolute left-1/2 bottom-0 w-0 h-0.5 bg-black transition-all group-hover:w-full group-hover:left-0"></span>
-    </li>
-  </ul>
-        </div>
-
-
-
+          <div className="bg-white p-4 shadow">
+            <ul className="flex gap-6 md:justify-center md:flex-row flex-col text-center border-gray-300">
+              {tabs.map((tab) => (
+                <li
+                  key={tab}
+                  className={`group relative cursor-pointer px-6 py-2 text-gray-700 hover:text-black font-medium transition-all ${
+                    activeTab === tab ? "text-black" : "text-gray-500"
+                  }`}
+                  onClick={() => setActiveTab(tab)} // Set active tab on click
+                >
+                  <span className="absolute inset-0 bg-gray-200 opacity-0 group-hover:opacity-100 rounded-md transition-all"></span>
+                  <span className="relative z-10">{tab}</span>
+                  <span className="absolute left-1/2 bottom-0 w-0 h-0.5 bg-black transition-all group-hover:w-full group-hover:left-0"></span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </Box>
 
         {/* Cards and drawer */}
-        <div class="flex flex-col px-[65px] lg:flex-row gap-4 p-4 min-h-screen">
-        <div class="w-full lg:w-3/4 bg-white shadow-lg rounded-lg p-4">
-          <h2 class="text-lg font-bold mb-4">Cards Section</h2>
-          <p>This is the left section where your cards will go.</p>
+        <div class="flex flex-col md:px-[65px] md:mt-0 mt-40 lg:flex-row gap-4 p-4 h-[100%]">
+          {/* AI Cards */}
+
+          <div className="w-full lg:w-3/4 bg-white h-full rounded-lg p-4">
+            <Typography class="text-2xl font-bold mb-4">
+              <FontAwesomeIcon
+                className="text-yellow-400 pr-2 !text-2xl"
+                icon={faFireFlameCurved}
+              />
+              Popular
+            </Typography>
+            <Typography className="!text-lg text-[#707070]">
+              Most ordered right now.
+            </Typography>
+            {/* Display Cards based on active tab */}
+            {activeTab === "Popular" && (
+              <Box className="flex flex-wrap gap-4 mt-8">
+                {restaurant.details.menu.popular.map((item, index) => (
+                  <Box
+                    key={index}
+                    className="relative border flex items-start justify-start w-full rounded-xl sm:w-[48%] lg:w-[49%] h-[24vh] px-3 py-2 overflow-hidden transition-transform transform hover:scale-105 hover:translate-y-2"
+                  >
+                    <Box>
+                      <Typography className="!font-bold !text-[16px] !mt-1">
+                        {item.name}
+                      </Typography>
+                      <Typography className="text-pink-600">
+                        {item.price}
+                        <span className="text-[#707070] ps-2 line-through !text-[14px]">
+                          {item.originalPrice}
+                        </span>
+                      </Typography>
+                      <Typography className="text-[#707070]">
+                        {item.description}
+                      </Typography>
+                    </Box>
+                    <Box className="overflow-hidden ms-10 mt-1">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="object-cover ms-3 rounded-lg w-[90%] transition-transform"
+                      />
+                    </Box>
+                    {/* Add to Cart Button */}
+                    <Typography className="absolute bottom-5 right-5 bg-white cursor-pointer px-2 shadow py-1 text-2xl border text-center text-[#575a5d] border-[#91969b] transition-transform duration-200 ease-in-out hover:scale-110 hover:bg-[#f4f8ff] items-center rounded-full">
+                      <FontAwesomeIcon icon={faPlus} />
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+            )}
+
+            <Typography class="text-2xl font-bold mb-4 mt-5">
+              Strong Pepsi Deals
+            </Typography>
+
+            {activeTab === "Strong Pepsi Deals" && (
+              <Box className="flex gap-4 mt-8">
+                {restaurant.details.menu.deals.map((deal, index) => (
+                  <Box
+                    key={index}
+                    className="relative border flex w-full rounded-xl sm:w-[48%] lg:w-[49%] h-[24vh] px-3 py-2 overflow-hidden transition-transform transform hover:scale-105 hover:translate-y-2"
+                  >
+                    {deal.items.map((item, idx) => (
+                      <Box key={idx} className="flex">
+                        <Box>
+                          <Typography className="!font-bold !text-[16px] !mt-1">
+                            {item.name}
+                          </Typography>
+                          <Typography className="text-pink-600">
+                            {item.price}
+                            <span className="text-[#707070] ps-2 line-through !text-[14px]">
+                              {item.originalPrice}
+                            </span>
+                          </Typography>
+                          <Typography className="text-[#707070] !text-[14px]">
+                            {item.description}
+                          </Typography>
+                        </Box>
+                        <Box className="overflow-hidden">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="object-cover ms-3 w-[90%] rounded-lg"
+                          />
+                        </Box>
+                      </Box>
+                    ))}
+                  </Box>
+                ))}
+              </Box>
+            )}
+
+            <Typography class="text-2xl font-bold mb-4 mt-5">Rice</Typography>
+            <Typography className="!text-lg text-[#707070]">
+              Served fresh.
+            </Typography>
+
+            {activeTab === "Rice" && (
+              <Box className="flex flex-wrap gap-4 mt-8">
+                {restaurant.details.menu.categories
+                  .find((category) => category.name === "Rice")
+                  ?.items.map((item, index) => (
+                    <Box
+                      key={index}
+                      className="relative border flex w-full justify-between items-start rounded-xl sm:w-[48%] lg:w-[49%] h-[24vh] px-3 py-2 overflow-hidden transition-transform transform hover:scale-105 hover:translate-y-2"
+                    >
+                      <Box>
+                        <Typography className="!font-bold !text-[16px] !mt-1">
+                          {item.name}
+                        </Typography>
+                        <Typography className="text-pink-600">
+                          {item.price}
+                          <span className="text-[#707070] ps-2 line-through !text-[14px]">
+                            {item.originalPrice}
+                          </span>
+                        </Typography>
+                        <Typography className="text-[#707070]">
+                          {item.description}
+                        </Typography>
+                      </Box>
+                      <Box className="overflow-hidden rounded-lg">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="object-cover rounded-lg ms-3 w-[90%]"
+                        />
+                      </Box>
+                      {/* Add to Cart Button */}
+                      <Typography className="absolute bottom-5 right-5 bg-white cursor-pointer px-2 shadow py-1 text-2xl border text-center text-[#575a5d] border-[#91969b] transition-transform duration-200 ease-in-out hover:scale-110 hover:bg-[#f4f8ff] items-center rounded-full">
+                        <FontAwesomeIcon
+                          icon={faPlus} // Plus Icon for Add to Cart
+                        />
+                      </Typography>
+                    </Box>
+                  ))}
+              </Box>
+            )}
+
+            <Typography class="text-2xl font-bold mb-4 mt-5">Sides</Typography>
+            <Typography className="!text-lg text-[#707070]">
+              Single serving. Served fresh
+            </Typography>
+
+            {activeTab === "Sides" && (
+              <Box className="flex flex-wrap gap-4 mt-8">
+                {restaurant.details.menu.categories
+                  .find((category) => category.name === "Sides")
+                  ?.items.map((item, index) => (
+                    <Box
+                      key={index}
+                      className="relative border flex items-start justify-between w-full rounded-xl sm:w-[48%] lg:w-[49%] h-[24vh] px-3 py-2 overflow-hidden transition-transform transform hover:scale-105 hover:translate-y-2"
+                    >
+                      <Box>
+                        <Typography className="!font-bold !text-[16px] !mt-1">
+                          {item.name}
+                        </Typography>
+                        <Typography className="text-pink-600">
+                          {item.price}
+                          <span className="text-[#707070] ps-2 line-through !text-[14px]">
+                            {item.originalPrice}
+                          </span>
+                        </Typography>
+                        <Typography className="text-[#707070]">
+                          {item.description}
+                        </Typography>
+                      </Box>
+                      <Box className="overflow-hidden">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="object-cover w-[90%] ms-3 rounded-lg"
+                        />
+                      </Box>
+                      {/* Add to Cart Button */}
+                      <Typography className="absolute bottom-5 right-5 bg-white cursor-pointer px-2 shadow py-1 text-2xl border text-center text-[#575a5d] border-[#91969b] transition-transform duration-200 ease-in-out hover:scale-110 hover:bg-[#f4f8ff] items-center rounded-full">
+                        <FontAwesomeIcon
+                          icon={faPlus} // Replace with the Plus Icon
+                        />
+                      </Typography>
+                    </Box>
+                  ))}
+              </Box>
+            )}
+          </div>
+
+          {/* Cart part */}
+          <div class="w-full lg:w-1/4 bg-gray-50 shadow-lg rounded-lg p-4">
+            <h2 class="text-lg font-bold mb-4">Cart Section</h2>
+            <p>This is the right section where your cart or drawer will go.</p>
+          </div>
         </div>
-
-  <div class="w-full lg:w-1/4 bg-gray-50 shadow-lg rounded-lg p-4">
-    <h2 class="text-lg font-bold mb-4">Cart Section</h2>
-    <p>This is the right section where your cart or drawer will go.</p>
-  </div>
-</div>
-
-
-
       </Box>
     </>
   );
