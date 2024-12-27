@@ -5,6 +5,10 @@ const saveStateToLocalStorage = (state) => {
   localStorage.setItem('cart', JSON.stringify(state));
 };
 
+const initialState = {
+  items: [], // cart items
+};
+
 // Function to load the state from localStorage
 const loadStateFromLocalStorage = () => {
   const savedCart = localStorage.getItem('cart');

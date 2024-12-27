@@ -8,6 +8,7 @@ import {
   faCrown,
   faFire,
   faFireFlameCurved,
+  faHeart,
   faInfo,
   faInfoCircle,
   faMotorcycle,
@@ -17,7 +18,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 // import { addToCart } from "../../app/Store";
-import { removeFromCart, incrementItem, decrementItem, addToCart } from "../../slices/cartSlice";
+import {
+  removeFromCart,
+  incrementItem,
+  decrementItem,
+  addToCart,
+} from "../../slices/cartSlice";
+import { addToFavorites } from '../../slices/favoriteSlice';
 
 const Restaurant = () => {
   const { id, name } = useParams();
@@ -107,6 +114,7 @@ const Restaurant = () => {
   const handleRemove = (id) => {
     dispatch(removeFromCart({ id }));
   };
+
 
   return (
     <>
@@ -299,15 +307,24 @@ const Restaurant = () => {
                   >
                     <FontAwesomeIcon icon={faPlus} />
                   </Typography>
+                  <Typography
+                    onClick={() => dispatch(addToFavorites(item))}
+                    className="absolute bottom-5 right-16 bg-white cursor-pointer px-2 shadow py-1 text-base border text-center text-[#575a5d] border-[#91969b] transition-transform duration-200 ease-in-out hover:scale-110 hover:bg-[#f4f8ff] items-center rounded-full"
+                  >
+                    <FontAwesomeIcon icon={faHeart} />
+                  </Typography>
                 </Box>
               ))}
             </Box>
           </div>
 
           {/* drawer part */}
-          <div className="w-full lg:w-1/4 h-[70vh] bg-gray-50 shadow-lg rounded-lg p-4">
+          <div className="w-full lg:w-1/4 h-[70vh] bg-gray-50 shadow-lg rounded-lg p-4 flex flex-col">
             {cart.cartItems.length === 0 ? (
-              <div id="cart-empty" className="text-center py-10">
+              <div
+                id="cart-empty"
+                className="text-center py-10 flex-grow flex flex-col justify-center"
+              >
                 <img
                   src="https://foodpanda.dhmedia.io/image/bento/production/web/fp/empty-state/illu_cart_empty.svg"
                   alt="Empty Cart Image"
@@ -319,54 +336,68 @@ const Restaurant = () => {
                 <p className="text-gray-500 mb-4">
                   You haven't added anything to your cart!
                 </p>
-                <button className="!bg-pink-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-pink-800 font-medium transition-all mt-28 duration-300">
-                  <Link to="/order">Review payment and address</Link>
+                <button
+                  className={`!bg-pink-600 text-white px-6 py-2 rounded-lg shadow-md font-medium transition-all duration-300 ${
+                    cart.cartItems.length === 0
+                      ? "opacity-50 cursor-not-allowed"
+                      : "hover:bg-pink-800"
+                  }`}
+                  disabled={cart.cartItems.length === 0}
+                >
+                  <Link to={cart.cartItems.length > 0 ? "/order" : "#"}>
+                    Review payment and address
+                  </Link>
                 </button>
               </div>
             ) : (
-              <div id="cart-details">
-                {cart.cartItems.map((item) => (
-                  <div key={item.id} className="mb-4">
-                    <p className="text-gray-800 font-medium">{item.name}</p>
-                    <img className="w-16" src={item.image} alt="" />
-                    <p className="text-gray-800 font-medium">
-                      {item.description}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      Qty: {item.quantity}
-                    </p>
-                    <p className="text-sm text-gray-500">{`Price: Rs. ${item.totalPrice}`}</p>
-                    <div className="flex items-center mt-2">
-                      <button onClick={() => handleDecrement(item.id)}>
-                        -
-                      </button>
-                      <span className="mx-2">{item.quantity}</span>
-                      <button onClick={() => handleIncrement(item.id)}>
-                        +
-                      </button>
-                      <button
-                        onClick={() => handleRemove(item.id)}
-                        className="ml-4 text-red-500"
-                      >
-                        Remove
-                      </button>
+              <>
+                <div id="cart-items" className="overflow-y-auto flex-grow">
+                  {cart.cartItems.map((item) => (
+                    <div key={item.id} className="mb-4">
+                      <p className="text-gray-800 font-medium">{item.name}</p>
+                      <img className="w-16" src={item.image} alt="" />
+                      <p className="text-gray-800 font-medium">
+                        {item.description}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        Qty: {item.quantity}
+                      </p>
+                      <p className="text-sm text-gray-500">{`Price: Rs. ${item.totalPrice}`}</p>
+                      <div className="flex items-center mt-2">
+                        <button onClick={() => handleDecrement(item.id)}>
+                          -
+                        </button>
+                        <span className="mx-2">{item.quantity}</span>
+                        <button onClick={() => handleIncrement(item.id)}>
+                          +
+                        </button>
+                        <button
+                          onClick={() => handleRemove(item.id)}
+                          className="ml-4 text-red-500"
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
-
-                <div className="mt-4 border-t border-gray-300 pt-4">
-                  <p className="font-bold text-gray-800">Total</p>
-                  
-                  <p className="text-sm text-gray-500">(incl. fees and tax)</p>
-                  <p className="text-lg font-bold text-gray-800">
-                    {cart.totalPrice}
-                  </p>
+                  ))}
                 </div>
 
-                <button className="!bg-pink-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-pink-800 font-medium transition-all mt-4">
-                  <Link to="/order">Review payment and address</Link>
-                </button>
-              </div>
+                <div id="cart-footer" className="border-t border-gray-300 pt-4">
+                  <div className="mb-4">
+                    <p className="font-bold text-gray-800">Total</p>
+                    <p className="text-sm text-gray-500">
+                      (incl. fees and tax)
+                    </p>
+                    <p className="text-lg font-bold text-gray-800">
+                      {cart.totalPrice}
+                    </p>
+                  </div>
+
+                  <button className="!bg-pink-600 text-white px-6 py-2 rounded-lg shadow-md font-medium transition-all duration-300 hover:bg-pink-800 w-full">
+                    <Link to="/order">Review payment and address</Link>
+                  </button>
+                </div>
+              </>
             )}
           </div>
 

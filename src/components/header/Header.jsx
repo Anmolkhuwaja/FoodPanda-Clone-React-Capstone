@@ -7,9 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import Logo from "../../assets/Logo image.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import Profile from '../profile/Profile';
-import { useDispatch, useSelector } from "react-redux";
-// import { setUser } from '../../slices/userSlice';
+import {useSelector } from "react-redux";
 import { faCircleCheck, faHeart } from "@fortawesome/free-regular-svg-icons";
 import {
   faAngleDown,
@@ -25,7 +23,6 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import MobileDrawer from "./MobileDrawer";
-// import { setUser } from "../../slices/userSlice";
 
 // Schema for Validation
 const schema = yup.object({
@@ -53,6 +50,8 @@ const Header = () => {
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
   const [user, setUser] = useState(null);
+  const totalItems = useSelector((state) => state.cart.totalItems);
+  const favoritesCount = useSelector(state => state.favorites.items.length);
   // const dispatch = useDispatch();
   // const user = useSelector((state) => state.user);
 
@@ -189,25 +188,31 @@ const Header = () => {
               <Typography className="text-black ps-2 pt-1">EN</Typography>
             </Badge>
           </IconButton>
-          <IconButton
-            size="large"
-            aria-label="show 17 new notifications"
-            color="inherit"
-          >
-            <Badge badgeContent={0} color="error">
-              <FontAwesomeIcon className="text-black" icon={faHeart} />
-            </Badge>
-          </IconButton>
+
+          <Link to="/favorites">
+      <IconButton
+        size="large"
+        aria-label="show favorite items"
+        color="inherit"
+      >
+        <Badge badgeContent={favoritesCount} color="error">
+          <FontAwesomeIcon className="text-black" icon={faHeart} />
+        </Badge>
+      </IconButton>
+    </Link>
 
           <IconButton
-            size="large"
-            edge="end"
-            aria-label="account of current user"
-            aria-haspopup="true"
-            color="inherit"
-          >
-            <FontAwesomeIcon className="text-black" icon={faBagShopping} />
-          </IconButton>
+      size="large"
+      edge="end"
+      aria-label="cart"
+      color="inherit"
+      style={{ position: "relative" }}
+    >
+      <Badge badgeContent={totalItems} color="primary">
+        <FontAwesomeIcon className="text-black" icon={faBagShopping} />
+      </Badge>
+    </IconButton>
+
           
         </Toolbar>
       </AppBar>
