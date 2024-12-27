@@ -12,31 +12,34 @@
             "image": "https://images.deliveryhero.io/image/fd-pk/LH/omwm-listing.jpg?width=200&height=200",
             "type": "Pakistani ⁃ Biryani ⁃ Pulao",
             "delivery": "Free delivery",
-            "priceRange": "Rs. 49",
-            "minOrder": "Rs. 249",
+            "priceRange": "49",
+            "minOrder": "249",
             "rating": "4.7/5",
             "reviews": "100+"
           },
           "menu": {
             "popular": [
               {
+                "id": 0,
                 "name": "Chicken Biryani with Raita",
-                "price": "from Rs. 288",
-                "originalPrice": "Rs. 320",
+                "price": "288",
+                "originalPrice": "320",
                 "description": "The authentic Chicken Biryani",
                 "image": "https://images.deliveryhero.io/image/fd-pk/Products/29423742.jpg?width=130&height=130"
               },
               {
+                "id": 1,
                 "name": "Pepsi Deal",
-                "price": "Rs. 630",
-                "originalPrice": "Rs. 700",
+                "price": "630",
+                "originalPrice": "700",
                 "description": "Full Chicken Biryani with shami Kabab, Raita & Salad & PEPSI 345 ML",
                 "image": "https://images.deliveryhero.io/image/fd-pk/Products/33699335.jpg?width=300&height=300"
               },
               {
+                "id": 2,
                 "name": "Sada Biryani with Raita",
-                "price": "from Rs. 180",
-                "originalPrice": "Rs. 200",
+                "price": "180",
+                "originalPrice": "200",
                 "description": "For people who dont want chicken",
                 "image": "https://images.deliveryhero.io/image/fd-pk/Products/29423748.jpg?width=150&height=150"
               }
@@ -46,9 +49,10 @@
                 "name": "Strong Pepsi Deals",
                 "items": [
                   {
+                    "id": 4,
                     "name": "Pepsi Deal",
-                    "price": "Rs. 630",
-                    "originalPrice": "Rs. 700",
+                    "price": "630",
+                    "originalPrice": "700",
                     "description": "Full Chicken Biryani with shami Kabab, Raita & Salad & PEPSI 345 ML",
                     "image": "https://images.deliveryhero.io/image/fd-pk/Products/33699335.jpg?width=230&height=230"
                   }
@@ -60,23 +64,26 @@
                 "name": "Rice",
                 "items": [
                   {
+                    "id": 5,
                     "name": "Chicken Biryani with Raita",
-                    "price": "from Rs. 288",
-                    "originalPrice": "Rs. 320",
+                    "price": "288",
+                    "originalPrice": "320",
                     "description": "The authentic Chicken Biryani",
                     "image": "https://images.deliveryhero.io/image/fd-pk/Products/29423742.jpg?width=130&height=130"
                   },
                   {
+                    "id": 6,
                     "name": "Sada Biryani with Raita",
-                    "price": "from Rs. 180",
-                    "originalPrice": "Rs. 200",
+                    "price": "180",
+                    "originalPrice": "200",
                     "description": "For people who dont want chicken",
                     "image": "https://images.deliveryhero.io/image/fd-pk/Products/29423748.jpg?width=130&height=130"
                   },
                   {
+                    "id": 7,
                     "name": "Chicken Pulao with Shami Kabab",
-                    "price": "from Rs. 315",
-                    "originalPrice": "Rs. 350",
+                    "price": "315",
+                    "originalPrice": "350",
                     "description": "Single serving",
                     "image": "https://images.deliveryhero.io/image/fd-pk/Products/29423749.jpg?width=130&height=130"
                   }
@@ -86,23 +93,26 @@
                 "name": "Sides",
                 "items": [
                   {
+                    "id": 8,
                     "name": "Shami Kabab",
-                    "price": "Rs. 45",
-                    "originalPrice": "Rs. 50",
+                    "price": "45",
+                    "originalPrice": "50",
                     "description": "The fried heaven",
                     "image": "https://images.deliveryhero.io/image/fd-pk/Products/29424873.jpg?width=150&height=150"
                   },
                   {
+                    "id": 9,
                     "name": "Raita",
-                    "price": "Rs. 36",
-                    "originalPrice": "Rs. 40",
+                    "price": "36",
+                    "originalPrice": "40",
                     "description": "Fresh Raita",
                     "image": "https://images.deliveryhero.io/image/fd-pk/Products/29424876.jpg?width=140&height=140"
                   },
                   {
+                    "id": 10,
                     "name": "Salad",
-                    "price": "Rs. 36",
-                    "originalPrice": "Rs. 40",
+                    "price": "36",
+                    "originalPrice": "40",
                     "description": "Fresh salad",
                     "image": "https://images.deliveryhero.io/image/fd-pk/Products/29424877.jpg?width=150&height=150"
                   }

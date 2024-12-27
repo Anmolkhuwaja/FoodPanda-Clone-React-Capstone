@@ -198,6 +198,7 @@ const Header = () => {
               <FontAwesomeIcon className="text-black" icon={faHeart} />
             </Badge>
           </IconButton>
+
           <IconButton
             size="large"
             edge="end"
@@ -207,6 +208,7 @@ const Header = () => {
           >
             <FontAwesomeIcon className="text-black" icon={faBagShopping} />
           </IconButton>
+          
         </Toolbar>
       </AppBar>
 

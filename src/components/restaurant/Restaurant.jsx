@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Button, Divider, Modal, Typography } from "@mui/material";
 import restaurantsData from "../../components/data/RestaurantsData.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,12 +15,20 @@ import {
   faPlus,
   faShoppingBasket,
 } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+// import { addToCart } from "../../app/Store";
+import { removeFromCart, incrementItem, decrementItem, addToCart } from "../../slices/cartSlice";
 
 const Restaurant = () => {
   const { id, name } = useParams();
   const [restaurant, setRestaurant] = useState(null);
   const [activeTab, setActiveTab] = useState("All");
   const tabs = ["All", "Popular", "Strong Pepsi Deals", "Rice", "Sides"];
+  const [open, setOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const cart = useSelector((state) => state.cart); // Access cart state from Redux
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const selectedRestaurant = restaurantsData.restaurants.find(
@@ -58,6 +66,47 @@ const Restaurant = () => {
   };
 
   const filteredItems = getFilteredItems();
+
+  const handleOpen = (item) => {
+    setSelectedItem(item);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedItem(null);
+  };
+
+  const handleAddToCart = () => {
+    const price = parseFloat(selectedItem.price.replace(/[^\d.-]/g, ""));
+
+    if (!isNaN(price)) {
+      dispatch(
+        addToCart({
+          id: selectedItem.id,
+          name: selectedItem.name,
+          price: selectedItem.price,
+          description: selectedItem.description,
+          image: selectedItem.image,
+        })
+      );
+    } else {
+      console.error("Invalid price format");
+    }
+  };
+
+  // Example of incrementing/decrementing the quantity
+  const handleIncrement = (id) => {
+    dispatch(incrementItem({ id }));
+  };
+
+  const handleDecrement = (id) => {
+    dispatch(decrementItem({ id }));
+  };
+
+  const handleRemove = (id) => {
+    dispatch(removeFromCart({ id }));
+  };
 
   return (
     <>
@@ -206,18 +255,14 @@ const Restaurant = () => {
 
         {/* Cards and drawer */}
         <div class="flex flex-col md:px-[65px] md:mt-0 mt-40 lg:flex-row gap-4 p-4 h-[100%]">
-          {/* AI Cards */}
+          {/* Cards */}
           <div className="w-full lg:w-3/4 bg-white h-full rounded-lg p-4">
-            <Typography class="text-2xl font-bold mb-4 mt-5">
+            <Typography className="text-2xl font-bold mb-4 mt-5">
               <FontAwesomeIcon
                 className="text-yellow-400 pr-2 !text-2xl"
                 icon={faFireFlameCurved}
               />
               {activeTab === "All" ? "All Items" : activeTab}
-            </Typography>
-
-            <Typography class="text-2xl font-bold mb-4 mt-5">
-              {activeTab === "All" ? "" : ""}
             </Typography>
 
             <Box className="flex flex-wrap gap-4 mt-8">
@@ -231,9 +276,9 @@ const Restaurant = () => {
                       {item.name}
                     </Typography>
                     <Typography className="text-pink-600">
-                      {item.price}
+                      Rs. {item.price}
                       <span className="text-[#707070] ps-2 line-through !text-[14px]">
-                        {item.originalPrice}
+                        Rs. {item.originalPrice}
                       </span>
                     </Typography>
                     <Typography className="text-[#707070]">
@@ -248,7 +293,10 @@ const Restaurant = () => {
                     />
                   </Box>
                   {/* Add to Cart Button */}
-                  <Typography className="absolute bottom-5 right-5 bg-white cursor-pointer px-2 shadow py-1 text-2xl border text-center text-[#575a5d] border-[#91969b] transition-transform duration-200 ease-in-out hover:scale-110 hover:bg-[#f4f8ff] items-center rounded-full">
+                  <Typography
+                    onClick={() => handleOpen(item)}
+                    className="absolute bottom-5 right-5 bg-white cursor-pointer px-2 shadow py-1 text-2xl border text-center text-[#575a5d] border-[#91969b] transition-transform duration-200 ease-in-out hover:scale-110 hover:bg-[#f4f8ff] items-center rounded-full"
+                  >
                     <FontAwesomeIcon icon={faPlus} />
                   </Typography>
                 </Box>
@@ -256,11 +304,137 @@ const Restaurant = () => {
             </Box>
           </div>
 
-          {/* Cart part */}
-          <div class="w-full lg:w-1/4 bg-gray-50 shadow-lg rounded-lg p-4">
-            <h2 class="text-lg font-bold mb-4">Cart Section</h2>
-            <p>This is the right section where your cart or drawer will go.</p>
+          {/* drawer part */}
+          <div className="w-full lg:w-1/4 h-[70vh] bg-gray-50 shadow-lg rounded-lg p-4">
+            {cart.cartItems.length === 0 ? (
+              <div id="cart-empty" className="text-center py-10">
+                <img
+                  src="https://foodpanda.dhmedia.io/image/bento/production/web/fp/empty-state/illu_cart_empty.svg"
+                  alt="Empty Cart Image"
+                  className="mx-auto mb-4 w-24 h-24 object-contain"
+                />
+                <p className="text-gray-700 font-semibold text-xl mb-2">
+                  Hungry?
+                </p>
+                <p className="text-gray-500 mb-4">
+                  You haven't added anything to your cart!
+                </p>
+                <button className="!bg-pink-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-pink-800 font-medium transition-all mt-28 duration-300">
+                  <Link to="/order">Review payment and address</Link>
+                </button>
+              </div>
+            ) : (
+              <div id="cart-details">
+                {cart.cartItems.map((item) => (
+                  <div key={item.id} className="mb-4">
+                    <p className="text-gray-800 font-medium">{item.name}</p>
+                    <img className="w-16" src={item.image} alt="" />
+                    <p className="text-gray-800 font-medium">
+                      {item.description}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      Qty: {item.quantity}
+                    </p>
+                    <p className="text-sm text-gray-500">{`Price: Rs. ${item.totalPrice}`}</p>
+                    <div className="flex items-center mt-2">
+                      <button onClick={() => handleDecrement(item.id)}>
+                        -
+                      </button>
+                      <span className="mx-2">{item.quantity}</span>
+                      <button onClick={() => handleIncrement(item.id)}>
+                        +
+                      </button>
+                      <button
+                        onClick={() => handleRemove(item.id)}
+                        className="ml-4 text-red-500"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ))}
+
+                <div className="mt-4 border-t border-gray-300 pt-4">
+                  <p className="font-bold text-gray-800">Total</p>
+                  
+                  <p className="text-sm text-gray-500">(incl. fees and tax)</p>
+                  <p className="text-lg font-bold text-gray-800">
+                    {cart.totalPrice}
+                  </p>
+                </div>
+
+                <button className="!bg-pink-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-pink-800 font-medium transition-all mt-4">
+                  <Link to="/order">Review payment and address</Link>
+                </button>
+              </div>
+            )}
           </div>
+
+          {/* Modal */}
+          <Modal open={open} onClose={handleClose}>
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 400,
+                bgcolor: "background.paper",
+                border: "none",
+                boxShadow: 24,
+                height: "70%",
+                borderRadius: 2,
+              }}
+            >
+              {selectedItem && (
+                <>
+                  <Box>
+                    <img
+                      src={selectedItem.image}
+                      alt={selectedItem.name}
+                      className="w-full h-[35vh] object-cover object-center rounded-lg mb-4"
+                    />
+                  </Box>
+
+                  <Typography
+                    variant="h5"
+                    className="px-2"
+                    component="h2"
+                    gutterBottom
+                  >
+                    {selectedItem.name}
+                  </Typography>
+                  <Typography variant="body1" className="px-2" gutterBottom>
+                    {selectedItem.description}
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    className="px-2"
+                    color="text.secondary"
+                  >
+                    {selectedItem.price}
+                  </Typography>
+                  <Typography
+                    className="px-2"
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ textDecoration: "line-through" }}
+                  >
+                    {selectedItem.originalPrice}
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{ mt: 2 }}
+                    className=" !bg-pink-600 !w-[80%] !ms-10"
+                    onClick={handleAddToCart} // Call to dispatch the addToCart action
+                  >
+                    Add to Cart
+                  </Button>
+                </>
+              )}
+            </Box>
+          </Modal>
         </div>
       </Box>
     </>

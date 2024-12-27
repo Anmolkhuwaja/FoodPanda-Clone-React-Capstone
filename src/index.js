@@ -11,6 +11,7 @@ import ProtectedRoute from "./components/protected-route/ProtectedRoute";
 import City from "./components/city/City";
 import Cities from "./components/home/Cities";
 import Restaurant from "./components/restaurant/Restaurant";
+import AddressForm from "./components/addressForm/AddressForm"
 import store from "./app/Store";
 import { Provider } from "react-redux";
 
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "cities",
         element: <Cities />,
+      },
+      {
+        path: "order",
+        element: <AddressForm />,
       },
       {
         path: "city/:id",
