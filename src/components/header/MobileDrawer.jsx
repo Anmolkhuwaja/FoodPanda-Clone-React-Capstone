@@ -10,6 +10,7 @@ import {
   faUserEdit,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const MobileDrawer = (props) => {
   const {
@@ -54,7 +55,7 @@ const MobileDrawer = (props) => {
                   marginTop: "10px",
                 }}
               >
-                {!user ? (
+                {!user.username ? (
                   <>
                     <Box className="flex items-center justify-start mt-8 group relative">
                       <span className="absolute inset-0 mx-2 -ms-3 rounded-xl bg-[#ecdde4] opacity-0 group-hover:opacity-100 transition-all duration-300"></span>
@@ -105,10 +106,9 @@ const MobileDrawer = (props) => {
                   className="!text-xl ps-8 text-black !p-3 cursor-pointer relative z-10"
                   onClick={() => {
                     setOpen4(false);
-                    setOpen5(true);
                   }}
                 >
-                  Profile
+                  <Link to="/profile">Profile</Link>
                 </Typography>
               </Box>
 

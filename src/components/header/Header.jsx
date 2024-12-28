@@ -1,28 +1,46 @@
 import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import Logo from "../../assets/Logo image.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {useSelector } from "react-redux";
-import { faCircleCheck, faHeart } from "@fortawesome/free-regular-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  faCircleCheck,
+  faHeart,
+  faTrashAlt,
+} from "@fortawesome/free-regular-svg-icons";
 import {
   faAngleDown,
   faArrowRightFromBracket,
   faBagShopping,
   faGlobe,
+  faMinus,
+  faPlus,
   faUser,
   faUserCheck,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { Button, Divider, Modal, TextField, Typography } from "@mui/material";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  Button,
+  Divider,
+  Drawer,
+  Modal,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { clearUser, setUser } from "../../slices/userSlice";
 import * as yup from "yup";
 import MobileDrawer from "./MobileDrawer";
+import {
+  removeFromCart,
+  incrementItem,
+  decrementItem,
+  addToCart,
+} from "../../slices/cartSlice";
 
 // Schema for Validation
 const schema = yup.object({
@@ -38,7 +56,6 @@ const schema = yup.object({
 });
 
 const Header = () => {
-
   // Declare state for one & second modal
   const [open, setOpen] = React.useState(false);
 
@@ -49,24 +66,27 @@ const Header = () => {
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
-  const [user, setUser] = useState(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const totalItems = useSelector((state) => state.cart.totalItems);
-  const favoritesCount = useSelector(state => state.favorites.items.length);
-  // const dispatch = useDispatch();
-  // const user = useSelector((state) => state.user);
+  const favoritesCount = useSelector((state) => state.favorites.items.length);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const cart = useSelector((state) => state.cart);
 
   const toggleDrawer = (newOpen) => () => {
     setDrawer(newOpen);
   };
 
-  // React Hook Form setup
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
   });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   // Check for user in localStorage on page load
   useEffect(() => {
@@ -76,18 +96,43 @@ const Header = () => {
     }
   }, []);
 
-  // Handle Signup/Login
-  const onSubmit = (data) => {
-    localStorage.setItem("user", JSON.stringify(data));
-    setUser(data);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    localStorage.setItem("user", JSON.stringify(formData));
+    dispatch(setUser({ username: formData.username, email: formData.email }));
     setOpen2(false);
   };
 
-  // Logout
   const handleLogout = () => {
-    localStorage.removeItem("user");
+    dispatch(clearUser());
     setUser(null);
     setOpen3(false);
+  };
+
+  const toggleDrawer2 = (open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setIsDrawerOpen(open);
+  };
+
+  // const handleToggleDrawer = () => {
+  //   setIsDrawerOpen(!isDrawerOpen);
+  // };
+
+  const handleIncrement = (id) => {
+    dispatch(incrementItem({ id }));
+  };
+
+  const handleDecrement = (id) => {
+    dispatch(decrementItem({ id }));
+  };
+
+  const handleRemove = (id) => {
+    dispatch(removeFromCart({ id }));
   };
 
   return (
@@ -108,6 +153,7 @@ const Header = () => {
 
           <Box sx={{ flexGrow: 1 }} />
 
+          {/* Buttons and username */}
           <Box
             sx={{
               display: { xs: "none", sm: "flex" },
@@ -115,7 +161,7 @@ const Header = () => {
               gap: { xs: 1, md: 1 },
             }}
           >
-            {!user ? (
+            {!user.username ? (
               <>
                 <Typography
                   sx={{
@@ -127,9 +173,9 @@ const Header = () => {
                 <button
                   onClick={() => setOpen2(true)}
                   className="transform transition-transform duration-400 hover:scale-105 
-             text-[#39434d] border font-medium border-[#39434d] 
-             capitalize text-base 
-             px-3 py-1 rounded-lg"
+           text-[#39434d] border font-medium border-[#39434d] 
+           capitalize text-base 
+           px-3 py-1 rounded-lg"
                 >
                   Log in
                 </button>
@@ -137,9 +183,9 @@ const Header = () => {
                 <button
                   onClick={() => setOpen2(true)}
                   className="transform transition-transform ms-4 mr-4 duration-400 hover:scale-105 
-                    text-white bg-[#e21b70] border border-[#e21b70] 
-                    capitalize  rounded-lg font-medium py-1 px-3 
-                    hover:bg-[#9d0a48]"
+              text-white bg-[#e21b70] border border-[#e21b70] 
+              capitalize  rounded-lg font-medium py-1 px-3 
+              hover:bg-[#9d0a48]"
                 >
                   Sign up
                 </button>
@@ -190,48 +236,186 @@ const Header = () => {
           </IconButton>
 
           <Link to="/favorites">
-      <IconButton
-        size="large"
-        aria-label="show favorite items"
-        color="inherit"
-      >
-        <Badge badgeContent={favoritesCount} color="error">
-          <FontAwesomeIcon className="text-black" icon={faHeart} />
-        </Badge>
-      </IconButton>
-    </Link>
+            <IconButton
+              size="large"
+              aria-label="show favorite items"
+              color="inherit"
+            >
+              <Badge
+                badgeContent={favoritesCount}
+                color="error"
+                sx={{
+                  "& .MuiBadge-badge": {
+                    backgroundColor: "#E21B70",
+                    color: "white",
+                  },
+                }}
+              >
+                <FontAwesomeIcon className="text-black" icon={faHeart} />
+              </Badge>
+            </IconButton>
+          </Link>
 
           <IconButton
-      size="large"
-      edge="end"
-      aria-label="cart"
-      color="inherit"
-      style={{ position: "relative" }}
-    >
-      <Badge badgeContent={totalItems} color="primary">
-        <FontAwesomeIcon className="text-black" icon={faBagShopping} />
-      </Badge>
-    </IconButton>
+            size="large"
+            edge="end"
+            aria-label="cart"
+            color="inherit"
+            style={{ position: "relative" }}
+            onClick={toggleDrawer2(true)} // Open the drawer
+          >
+            <Badge
+              badgeContent={cart.totalItems}
+              color="primary"
+              sx={{
+                "& .MuiBadge-badge": {
+                  backgroundColor: "#E21B70",
+                  color: "white",
+                },
+              }}
+            >
+              <FontAwesomeIcon className="text-black" icon={faBagShopping} />
+            </Badge>
+          </IconButton>
 
-          
+          <Drawer
+            anchor="right"
+            open={isDrawerOpen}
+            onClose={toggleDrawer2(false)}
+          >
+            <Box
+              className="w-full h-[100vh] bg-gray-50 shadow-lg rounded-lg p-4 flex flex-col"
+              role="presentation"
+            >
+              {cart.cartItems.length === 0 ? (
+                <div
+                  id="cart-empty"
+                  className="text-center !py-4 flex-grow flex flex-col justify-center"
+                >
+                  <img
+                    src="https://foodpanda.dhmedia.io/image/bento/production/web/fp/empty-state/illu_cart_empty.svg"
+                    alt="Empty Cart Image"
+                    className="mx-auto mb-4 w-24 h-24 object-contain"
+                  />
+                  <Typography className="text-gray-700 !font-bold !text-2xl !mb-3">
+                    Hungry?
+                  </Typography>
+                  <Typography className="text-gray-500 px-4 !text-lg mb-4">
+                    You haven't added anything to your cart!
+                  </Typography>
+                  <Box className="mt-80">
+                    <Box className="mb-1 flex justify-between items-center">
+                      <Typography className="font-bold text-gray-800">
+                        <span className="!font-bold">Total</span> (incl. fees
+                        and tax)
+                      </Typography>
+                      <Typography className="text-lg !font-bold text-pink-600">
+                        Rs: {cart.totalPrice}
+                      </Typography>
+                    </Box>
+                    <button
+                      className={`!bg-pink-600 w-full text-white px-6 py-2 rounded-lg shadow-md font-medium transition-all duration-300 ${
+                        cart.cartItems.length === 0
+                          ? "opacity-50 cursor-not-allowed"
+                          : "hover:bg-pink-800"
+                      }`}
+                      disabled={cart.cartItems.length === 0}
+                    >
+                      <Link to={cart.cartItems.length > 0 ? "/order" : "#"}>
+                        Review payment and address
+                      </Link>
+                    </button>
+                  </Box>
+                </div>
+              ) : (
+                <>
+                  <div id="cart-items" className="overflow-y-auto flex-grow">
+                    {cart.cartItems.map((item) => (
+                      <div key={item.id} className="mb-4">
+                        <Box className="flex items-start justify-start p-4">
+                          <img
+                            className="w-16"
+                            src={item.image}
+                            alt={item.name}
+                          />
+                          <p className="text-gray-800 font-medium ps-2">
+                            {item.name}
+                          </p>
+                        </Box>
+                        <div className="flex items-center justify-start !font-medium space-x-2">
+                          <p className="text-sm text-gray-500 ps-4">
+                            {`Rs. ${item.totalPrice}`}
+                          </p>
+                          <div className="flex items-center mt-2 ps-4 !bg-gray-50 rounded-lg">
+                            <div className="flex items-center px-2 border border-gray-400 !justify-center space-x-2 bg-white rounded-3xl">
+                              <button
+                                onClick={() => handleDecrement(item.id)}
+                                className="bg-white p-1 !text-md rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
+                              >
+                                <FontAwesomeIcon icon={faMinus} />
+                              </button>
+                              <span className="bg-white p-1 !text-md rounded-lg mx-2">
+                                {item.quantity}
+                              </span>
+                              <button
+                                onClick={() => handleIncrement(item.id)}
+                                className="bg-white rounded-lg !text-md p-1 transition duration-300 ease-in-out transform hover:scale-105"
+                              >
+                                <FontAwesomeIcon icon={faPlus} />
+                              </button>
+                            </div>
+                            <button
+                              onClick={() => handleRemove(item.id)}
+                              className="bg-white border ms-4 border-gray-300 px-2 py-1 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+                            >
+                              <FontAwesomeIcon icon={faTrashAlt} />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <Box
+                    id="cart-footer"
+                    className="border-t border-gray-300 pt-4"
+                  >
+                    <Box className="mb-4 flex justify-between items-center">
+                      <Typography className="font-bold text-gray-800">
+                        <span className="!font-bold">Total</span> (incl. fees
+                        and tax)
+                      </Typography>
+                      <Typography className="text-lg !font-bold text-pink-600">
+                        Rs: {cart.totalPrice}
+                      </Typography>
+                    </Box>
+                    <button className="!bg-pink-600 text-white px-6 py-2 rounded-lg shadow-md font-medium transition-all duration-300 hover:bg-pink-800 w-full">
+                      <Link to="/order">Review payment and address</Link>
+                    </button>
+                  </Box>
+                </>
+              )}
+            </Box>
+          </Drawer>
         </Toolbar>
       </AppBar>
 
       <Box
         sx={{
-          display: { xs: "flex", sm: "none", position: "fixed", zIndex: "9" },
+          display: { xs: "flex", md: "none" },
+          position: "fixed",
+          zIndex: 1000,
+          left: 10,
         }}
-        className="!ml-2 -mt-2"
+        className="!ml-1 !mt-4 md:!mt-8"
       >
         <IconButton
           size="large"
           aria-label="show more"
           aria-haspopup="true"
           color="inherit"
-          className="!-mt-[50px]"
         >
           <FontAwesomeIcon
-            className="!text-2xl md:!text-4xl ml-2"
+            className="!text-2xl md:!text-4xl ml-2 z-10"
             onClick={toggleDrawer(true)}
             icon={faUser}
           />
@@ -435,54 +619,34 @@ const Header = () => {
             Sign up or log in to continue
           </Typography>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
-            {/* Username Field */}
-            <Controller
+          <form onSubmit={handleSubmit}>
+            <TextField
               name="username"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Username"
-                  fullWidth
-                  sx={{ mt: 2, mb: 2 }}
-                  error={!!errors.username}
-                  helperText={errors.username?.message}
-                />
-              )}
+              label="Username"
+              fullWidth
+              sx={{ mt: 2, mb: 2 }}
+              value={formData.username}
+              onChange={handleChange}
+              required
             />
-
-            {/* Email Field */}
-            <Controller
+            <TextField
               name="email"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Email"
-                  fullWidth
-                  sx={{ mb: 2 }}
-                  error={!!errors.email}
-                  helperText={errors.email?.message}
-                />
-              )}
+              label="Email"
+              fullWidth
+              sx={{ mb: 2 }}
+              value={formData.email}
+              onChange={handleChange}
+              required
             />
-
-            {/* Password Field */}
-            <Controller
+            <TextField
               name="password"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Password"
-                  type="password"
-                  fullWidth
-                  sx={{ mb: 2 }}
-                  error={!!errors.password}
-                  helperText={errors.password?.message}
-                />
-              )}
+              label="Password"
+              type="password"
+              fullWidth
+              sx={{ mb: 2 }}
+              value={formData.password}
+              onChange={handleChange}
+              required
             />
 
             <Button
@@ -515,7 +679,6 @@ const Header = () => {
             >
               Sign up
             </Button>
-
             <Typography
               sx={{ fontSize: "13px", paddingY: "15px", color: "#4d4d4d" }}
             >

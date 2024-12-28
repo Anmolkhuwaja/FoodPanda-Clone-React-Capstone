@@ -4,27 +4,25 @@ import { Box, Button, Divider, Modal, Typography } from "@mui/material";
 import restaurantsData from "../../components/data/RestaurantsData.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBicycle,
   faCrown,
-  faFire,
   faFireFlameCurved,
   faHeart,
-  faInfo,
   faInfoCircle,
+  faMinus,
   faMotorcycle,
   faPercentage,
   faPlus,
   faShoppingBasket,
+  faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-// import { addToCart } from "../../app/Store";
 import {
   removeFromCart,
   incrementItem,
   decrementItem,
   addToCart,
 } from "../../slices/cartSlice";
-import { addToFavorites } from '../../slices/favoriteSlice';
+import { addToFavorites } from "../../slices/favoriteSlice";
 
 const Restaurant = () => {
   const { id, name } = useParams();
@@ -34,7 +32,7 @@ const Restaurant = () => {
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const cart = useSelector((state) => state.cart); // Access cart state from Redux
+  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -114,7 +112,6 @@ const Restaurant = () => {
   const handleRemove = (id) => {
     dispatch(removeFromCart({ id }));
   };
-
 
   return (
     <>
@@ -241,7 +238,7 @@ const Restaurant = () => {
 
       {/* Tabs  */}
       <Box className="mt-5">
-        <Box className="h-[10vh]">
+        <Box className="h-[10vh]  !mb-10">
           <div className="bg-white p-4 shadow">
             <ul className="flex gap-6 md:justify-center md:flex-row flex-col text-center border-gray-300">
               {tabs.map((tab) => (
@@ -265,7 +262,7 @@ const Restaurant = () => {
         <div class="flex flex-col md:px-[65px] md:mt-0 mt-40 lg:flex-row gap-4 p-4 h-[100%]">
           {/* Cards */}
           <div className="w-full lg:w-3/4 bg-white h-full rounded-lg p-4">
-            <Typography className="text-2xl font-bold mb-4 mt-5">
+            <Typography className="text-2xl font-bold mb-4 !mt-14 md:!mt-0">
               <FontAwesomeIcon
                 className="text-yellow-400 pr-2 !text-2xl"
                 icon={faFireFlameCurved}
@@ -319,87 +316,109 @@ const Restaurant = () => {
           </div>
 
           {/* drawer part */}
-          <div className="w-full lg:w-1/4 h-[70vh] bg-gray-50 shadow-lg rounded-lg p-4 flex flex-col">
+          <Box className="w-full hidden lg:block lg:w-1/4 h-[70vh] bg-gray-50 shadow-lg rounded-lg p-4">
             {cart.cartItems.length === 0 ? (
               <div
                 id="cart-empty"
-                className="text-center py-10 flex-grow flex flex-col justify-center"
+                className="text-center !py-4 flex-grow flex flex-col justify-center"
               >
                 <img
                   src="https://foodpanda.dhmedia.io/image/bento/production/web/fp/empty-state/illu_cart_empty.svg"
                   alt="Empty Cart Image"
                   className="mx-auto mb-4 w-24 h-24 object-contain"
                 />
-                <p className="text-gray-700 font-semibold text-xl mb-2">
+                <Typography className="text-gray-700 !font-bold !text-2xl !mb-3">
                   Hungry?
-                </p>
-                <p className="text-gray-500 mb-4">
+                </Typography>
+                <Typography className="text-gray-500 px-4 !text-lg mb-4">
                   You haven't added anything to your cart!
-                </p>
-                <button
-                  className={`!bg-pink-600 text-white px-6 py-2 rounded-lg shadow-md font-medium transition-all duration-300 ${
-                    cart.cartItems.length === 0
-                      ? "opacity-50 cursor-not-allowed"
-                      : "hover:bg-pink-800"
-                  }`}
-                  disabled={cart.cartItems.length === 0}
-                >
-                  <Link to={cart.cartItems.length > 0 ? "/order" : "#"}>
-                    Review payment and address
-                  </Link>
-                </button>
+                </Typography>
+                <Box className="mt-28">
+                  <Box className="mb-1 flex justify-between items-center">
+                    <Typography className="font-bold text-gray-800">
+                      <span className="!font-bold">Total</span> (incl. fees and
+                      tax)
+                    </Typography>
+                    <Typography className="text-lg !font-bold text-pink-600">
+                      Rs: {cart.totalPrice}
+                    </Typography>
+                  </Box>
+                  <button
+                    className={`!bg-pink-600 text-white px-6 py-2 rounded-lg shadow-md font-medium transition-all duration-300 ${
+                      cart.cartItems.length === 0
+                        ? "opacity-50 cursor-not-allowed"
+                        : "hover:bg-pink-800"
+                    }`}
+                    disabled={cart.cartItems.length === 0}
+                  >
+                    <Link to={cart.cartItems.length > 0 ? "/order" : "#"}>
+                      Review payment and address
+                    </Link>
+                  </button>
+                </Box>
               </div>
             ) : (
               <>
                 <div id="cart-items" className="overflow-y-auto flex-grow">
                   {cart.cartItems.map((item) => (
                     <div key={item.id} className="mb-4">
-                      <p className="text-gray-800 font-medium">{item.name}</p>
-                      <img className="w-16" src={item.image} alt="" />
-                      <p className="text-gray-800 font-medium">
-                        {item.description}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        Qty: {item.quantity}
-                      </p>
-                      <p className="text-sm text-gray-500">{`Price: Rs. ${item.totalPrice}`}</p>
-                      <div className="flex items-center mt-2">
-                        <button onClick={() => handleDecrement(item.id)}>
-                          -
-                        </button>
-                        <span className="mx-2">{item.quantity}</span>
-                        <button onClick={() => handleIncrement(item.id)}>
-                          +
-                        </button>
-                        <button
-                          onClick={() => handleRemove(item.id)}
-                          className="ml-4 text-red-500"
-                        >
-                          Remove
-                        </button>
+                      <Box className="flex items-start justify-start p-4">
+                        <img className="w-16" src={item.image} alt="" />
+                        <p className="text-gray-800 font-medium ps-2">
+                          {item.name}
+                        </p>
+                      </Box>
+                      <div className="flex items-center justify-start !font-medium space-x-2">
+                        <p className="text-sm text-gray-500 ps-4">{`Rs. ${item.totalPrice}`}</p>
+                        <div className="flex items-center mt-2 ps-4 !bg-gray-50 rounded-lg">
+                          <div className="flex items-center px-2 border border-gray-400 !justify-center space-x-2 bg-white rounded-3xl">
+                            <button
+                              onClick={() => handleDecrement(item.id)}
+                              className="bg-white p-1 !text-md rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
+                            >
+                              <FontAwesomeIcon icon={faMinus} />
+                            </button>
+                            <span className="bg-white p-1 !text-md rounded-lg mx-2">
+                              {item.quantity}
+                            </span>
+                            <button
+                              onClick={() => handleIncrement(item.id)}
+                              className="bg-white rounded-lg !text-md p-1 transition duration-300 ease-in-out transform hover:scale-105"
+                            >
+                              <FontAwesomeIcon icon={faPlus} />
+                            </button>
+                          </div>
+
+                          <button
+                            onClick={() => handleRemove(item.id)}
+                            className="bg-white border ms-4 border-gray-300 px-2 py-1 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+                          >
+                            <FontAwesomeIcon icon={faTrashAlt} />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <div id="cart-footer" className="border-t border-gray-300 pt-4">
-                  <div className="mb-4">
-                    <p className="font-bold text-gray-800">Total</p>
-                    <p className="text-sm text-gray-500">
-                      (incl. fees and tax)
-                    </p>
-                    <p className="text-lg font-bold text-gray-800">
-                      {cart.totalPrice}
-                    </p>
-                  </div>
+                <Box id="cart-footer" className="border-t border-gray-300 pt-4">
+                  <Box className="mb-4 flex justify-between items-center">
+                    <Typography className="font-bold text-gray-800">
+                      <span className="!font-bold">Total</span> (incl. fees and
+                      tax)
+                    </Typography>
+                    <Typography className="text-lg !font-bold text-pink-600">
+                      Rs: {cart.totalPrice}
+                    </Typography>
+                  </Box>
 
                   <button className="!bg-pink-600 text-white px-6 py-2 rounded-lg shadow-md font-medium transition-all duration-300 hover:bg-pink-800 w-full">
                     <Link to="/order">Review payment and address</Link>
                   </button>
-                </div>
+                </Box>
               </>
             )}
-          </div>
+          </Box>
 
           {/* Modal */}
           <Modal open={open} onClose={handleClose}>
@@ -411,10 +430,10 @@ const Restaurant = () => {
                 transform: "translate(-50%, -50%)",
                 width: 400,
                 bgcolor: "background.paper",
-                border: "none",
-                boxShadow: 24,
+                boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
                 height: "70%",
                 borderRadius: 2,
+                outline: "none",
               }}
             >
               {selectedItem && (
@@ -423,42 +442,57 @@ const Restaurant = () => {
                     <img
                       src={selectedItem.image}
                       alt={selectedItem.name}
-                      className="w-full h-[35vh] object-cover object-center rounded-lg mb-4"
+                      className="w-full h-[35vh] object-cover rounded-lg mb-4"
+                      style={{
+                        objectFit: "cover",
+                        imageRendering: "optimizeQuality",
+                        width: "100%",
+                        height: "35vh",
+                        borderRadius: "8px",
+                      }}
                     />
                   </Box>
 
                   <Typography
                     variant="h5"
-                    className="px-2"
+                    className="px-2 text-pink-600 font-semibold"
                     component="h2"
                     gutterBottom
                   >
                     {selectedItem.name}
                   </Typography>
-                  <Typography variant="body1" className="px-2" gutterBottom>
+
+                  <Typography
+                    variant="body1"
+                    className="px-2 text-gray-700"
+                    gutterBottom
+                  >
                     {selectedItem.description}
                   </Typography>
+
                   <Typography
                     variant="h6"
-                    className="px-2"
-                    color="text.secondary"
+                    className="px-2 text-gray-900 font-bold"
                   >
-                    {selectedItem.price}
+                    Rs: {selectedItem.price}
                   </Typography>
+
                   <Typography
-                    className="px-2"
+                    className="px-2 text-gray-500 line-through"
                     variant="body2"
-                    color="text.secondary"
-                    sx={{ textDecoration: "line-through" }}
                   >
-                    {selectedItem.originalPrice}
+                    Rs:{selectedItem.originalPrice}
                   </Typography>
+
                   <Button
                     variant="contained"
                     color="primary"
                     sx={{ mt: 2 }}
-                    className=" !bg-pink-600 !w-[80%] !ms-10"
-                    onClick={handleAddToCart} // Call to dispatch the addToCart action
+                    className="!bg-pink-600 !text-white !w-[80%] !ms-10 hover:!bg-pink-700 transition"
+                    onClick={() => {
+                      handleAddToCart();
+                      handleClose();
+                    }}
                   >
                     Add to Cart
                   </Button>

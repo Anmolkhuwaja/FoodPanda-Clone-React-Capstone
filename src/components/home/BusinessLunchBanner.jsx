@@ -14,7 +14,7 @@ const BusinessLunchBanner = () => {
           src={Home}
           className="w-auto max-w-[100%] absolute 
             md:h-[40vh] lg:h-full h-[30vh] lg:w-auto object-cover lg:object-contain
-          top-[1442%] md:!top-[845%] lg:!top-[610%] xl:top-[605%]"
+          top-[1469%] md:!top-[844%] lg:!top-[610%] xl:top-[605%]"
           style={{
             left: 0,
           }}

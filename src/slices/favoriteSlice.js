@@ -9,14 +9,16 @@ const favoriteSlice = createSlice({
   },
   reducers: {
     addToFavorites: (state, action) => {
-      const existingItem = state.items.find(item => item.id === action.payload.id);
+      const existingItem = state.items.find(
+        (item) => item.id === action.payload.id
+      );
       if (!existingItem) {
         state.items.push(action.payload);
         localStorage.setItem("favorites", JSON.stringify(state.items));
       }
     },
     removeFromFavorites: (state, action) => {
-      state.items = state.items.filter(item => item.id !== action.payload.id);
+      state.items = state.items.filter((item) => item.id !== action.payload.id);
       localStorage.setItem("favorites", JSON.stringify(state.items));
     },
   },

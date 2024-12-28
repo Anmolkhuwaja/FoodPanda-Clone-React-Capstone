@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import MobileApps from "../../assets/foodpanda-Apps.webp";
 import QR from "../../assets/QR Code.png";

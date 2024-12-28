@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, removeFromCart, incrementItem, decrementItem } from '../../slices/cartSlice'; // Adjust the import path based on your setup
+import { useDispatch, useSelector } from "react-redux";
+import { removeFromCart } from "../../slices/cartSlice"; // Adjust the import path based on your setup
 import { Link } from "react-router-dom";
 
 const OrderForm = () => {
   const dispatch = useDispatch();
-  const cartItems = useSelector(state => state.cart.cartItems); // Fetch cart items from Redux state
-  const totalPrice = useSelector(state => state.cart.totalPrice); // Get total price from Redux state
+  const cartItems = useSelector((state) => state.cart.cartItems); // Fetch cart items from Redux state
+  const totalPrice = useSelector((state) => state.cart.totalPrice); // Get total price from Redux state
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -36,7 +36,8 @@ const OrderForm = () => {
     if (!formData.city) newErrors.city = "City is required.";
     if (!formData.postalCode) newErrors.postalCode = "Postal code is required.";
     if (!formData.country) newErrors.country = "Country is required.";
-    if (!formData.paymentMethod) newErrors.paymentMethod = "Please select a payment method.";
+    if (!formData.paymentMethod)
+      newErrors.paymentMethod = "Please select a payment method.";
 
     setErrors(newErrors);
 
@@ -50,11 +51,13 @@ const OrderForm = () => {
 
     // If no items in the cart, don't submit the form
     if (cartItems.length === 0) {
-      alert("Your cart is empty. Please add items to the cart before submitting.");
+      alert(
+        "Your cart is empty. Please add items to the cart before submitting."
+      );
       return;
     }
 
-    if (!validateForm()) return; // Stop submission if form is invalid
+    if (!validateForm()) return;
 
     // Open modal on successful order placement
     setIsModalOpen(true);
@@ -65,13 +68,13 @@ const OrderForm = () => {
       cartItems,
       totalPrice,
     };
-    localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
+    localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
 
     // Log order details to console (for tracking)
     console.log("Order Placed:", orderDetails);
 
     // Clear cart and form after submission
-    cartItems.forEach(item => dispatch(removeFromCart({ id: item.id })));
+    cartItems.forEach((item) => dispatch(removeFromCart({ id: item.id })));
     setFormData({
       name: "",
       email: "",
@@ -97,7 +100,9 @@ const OrderForm = () => {
         <h1 className="text-2xl font-bold mb-4 text-pink-600">Contact</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="name" className="block font-semibold">Name</label>
+            <label htmlFor="name" className="block font-semibold">
+              Name
+            </label>
             <input
               type="text"
               id="name"
@@ -106,11 +111,15 @@ const OrderForm = () => {
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-md"
             />
-            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+            {errors.name && (
+              <p className="text-red-500 text-sm">{errors.name}</p>
+            )}
           </div>
-          
+
           <div>
-            <label htmlFor="email" className="block font-semibold">Email</label>
+            <label htmlFor="email" className="block font-semibold">
+              Email
+            </label>
             <input
               type="email"
               id="email"
@@ -119,11 +128,15 @@ const OrderForm = () => {
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-md"
             />
-            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email}</p>
+            )}
           </div>
-          
+
           <div>
-            <label htmlFor="address" className="block font-semibold">Address</label>
+            <label htmlFor="address" className="block font-semibold">
+              Address
+            </label>
             <input
               type="text"
               id="address"
@@ -132,11 +145,15 @@ const OrderForm = () => {
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-md"
             />
-            {errors.address && <p className="text-red-500 text-sm">{errors.address}</p>}
+            {errors.address && (
+              <p className="text-red-500 text-sm">{errors.address}</p>
+            )}
           </div>
 
           <div>
-            <label htmlFor="phone" className="block font-semibold">Phone</label>
+            <label htmlFor="phone" className="block font-semibold">
+              Phone
+            </label>
             <input
               type="text"
               id="phone"
@@ -145,11 +162,15 @@ const OrderForm = () => {
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-md"
             />
-            {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+            {errors.phone && (
+              <p className="text-red-500 text-sm">{errors.phone}</p>
+            )}
           </div>
 
           <div>
-            <label htmlFor="city" className="block font-semibold">City</label>
+            <label htmlFor="city" className="block font-semibold">
+              City
+            </label>
             <input
               type="text"
               id="city"
@@ -158,11 +179,15 @@ const OrderForm = () => {
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-md"
             />
-            {errors.city && <p className="text-red-500 text-sm">{errors.city}</p>}
+            {errors.city && (
+              <p className="text-red-500 text-sm">{errors.city}</p>
+            )}
           </div>
 
           <div>
-            <label htmlFor="postalCode" className="block font-semibold">Postal Code</label>
+            <label htmlFor="postalCode" className="block font-semibold">
+              Postal Code
+            </label>
             <input
               type="text"
               id="postalCode"
@@ -171,11 +196,15 @@ const OrderForm = () => {
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-md"
             />
-            {errors.postalCode && <p className="text-red-500 text-sm">{errors.postalCode}</p>}
+            {errors.postalCode && (
+              <p className="text-red-500 text-sm">{errors.postalCode}</p>
+            )}
           </div>
 
           <div>
-            <label htmlFor="country" className="block font-semibold">Country</label>
+            <label htmlFor="country" className="block font-semibold">
+              Country
+            </label>
             <input
               type="text"
               id="country"
@@ -184,11 +213,15 @@ const OrderForm = () => {
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-md"
             />
-            {errors.country && <p className="text-red-500 text-sm">{errors.country}</p>}
+            {errors.country && (
+              <p className="text-red-500 text-sm">{errors.country}</p>
+            )}
           </div>
 
           <div>
-            <label htmlFor="paymentMethod" className="block font-semibold">Payment Method</label>
+            <label htmlFor="paymentMethod" className="block font-semibold">
+              Payment Method
+            </label>
             <select
               id="paymentMethod"
               name="paymentMethod"
@@ -201,10 +234,15 @@ const OrderForm = () => {
               <option value="paypal">PayPal</option>
               <option value="bankTransfer">Bank Transfer</option>
             </select>
-            {errors.paymentMethod && <p className="text-red-500 text-sm">{errors.paymentMethod}</p>}
+            {errors.paymentMethod && (
+              <p className="text-red-500 text-sm">{errors.paymentMethod}</p>
+            )}
           </div>
 
-          <button type="submit" className="w-full py-2 bg-pink-600 text-white font-bold rounded-md hover:bg-pink-700">
+          <button
+            type="submit"
+            className="w-full py-2 bg-pink-600 text-white font-bold rounded-md hover:bg-pink-700"
+          >
             Place Order
           </button>
         </form>
@@ -226,14 +264,18 @@ const OrderForm = () => {
                       <p className="text-sm text-gray-500">{item.details}</p>
                     </div>
                     <div className="flex items-center">
-                      <p className="font-semibold">{item.quantity} x Rs {item.price}</p>
+                      <p className="font-semibold">
+                        Rs {item.price}
+                      </p>
                     </div>
                   </li>
                 ))}
               </ul>
               <div className="mt-4">
                 <p className="font-medium">Shipping: Rs 150.00</p>
-                <p className="font-bold text-lg mt-2">Total: Rs {totalPrice.toFixed(2)}</p>
+                <p className="font-bold text-lg mt-2">
+                  Total: Rs {totalPrice.toFixed(2)}
+                </p>
               </div>
             </div>
           )}
@@ -243,13 +285,17 @@ const OrderForm = () => {
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
-            <h2 className="text-2xl font-bold text-pink-600 mb-4">Order Placed Successfully!</h2>
-            <p className="text-gray-600 mb-6">Your order has been successfully placed. We'll process it shortly.</p>
+            <h2 className="text-2xl font-bold text-pink-600 mb-4">
+              Order Placed Successfully!
+            </h2>
+            <p className="text-gray-600 mb-6">
+              Your order has been successfully placed. We'll process it shortly.
+            </p>
             <button
               onClick={handleCloseModal}
               className="py-2 px-4 bg-pink-600 text-white font-bold rounded-md hover:bg-pink-700"
             >
-              <Link to='/'>Home</Link>
+              <Link to="/">Home</Link>
             </button>
           </div>
         </div>
