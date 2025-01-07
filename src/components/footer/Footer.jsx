@@ -84,7 +84,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-8"
                 >
                   Press
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -95,7 +95,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   pandapay Terms and Conditions
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -106,7 +106,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-9"
                 >
                   Security
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -117,7 +117,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-9"
                 >
                   Careers
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -128,7 +128,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Cashback Terms and Conditions
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -139,7 +139,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-9"
                 >
                   Partner with Us
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -150,7 +150,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-10"
                 >
                   All cities
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -161,9 +161,9 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !items-center !font-medium relative group md:!ms-0 !ms-6"
                 >
-                  pandapro - Monthly Subscription Programme
+                  pandapro - Monthly Subscription    Programme
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
                 </Link>
               </li>
@@ -172,7 +172,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Ramzan deals Areas delivered in Lahore
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -183,7 +183,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Areas delivered in Lahore
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -198,7 +198,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Help Center
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -209,7 +209,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Terms and Conditions
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -220,7 +220,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Download foodpanda Apps
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -231,7 +231,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Suggest a Restaurant
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -242,7 +242,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   All cuisines
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -253,7 +253,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   pandago - Request a Rider
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -264,7 +264,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Update on COVID-19 in Pakistan
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -275,7 +275,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   foodpanda Home Chef
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -286,7 +286,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Areas delivered in Karachi
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -297,7 +297,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Areas delivered in Islamabad
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -312,7 +312,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Refunds with pandapay
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -323,7 +323,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Privacy policy
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -334,7 +334,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Human rights policy
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -345,7 +345,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Corporate Customer
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -356,7 +356,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   foodpanda Magazine
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -367,7 +367,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   foodpanda Vouchers & Coupons
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -378,7 +378,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   pandamart Grocery Delivery
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -389,7 +389,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Become an Affiliate Areas delivered in Gujranwala
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -400,7 +400,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Areas delivered in Gujranwala
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>
@@ -411,7 +411,7 @@ const Footer = () => {
                   href="#"
                   variant="body2"
                   color="inherit"
-                  className="underline text-[#39434d] !font-medium relative group md:ms-0 ms-16"
+                  className="underline text-[#39434d] !font-medium relative group md:!ms-0 !ms-6"
                 >
                   Areas delivered in Peshawar
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#39434d] transition-all duration-400 ease-in-out group-hover:w-full"></span>

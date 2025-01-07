@@ -58,7 +58,7 @@ const router = createBrowserRouter([
         element: <Restaurant />,
       },
       {
-        path: "*", // Catch-all route for undefined paths
+        path: "*",
         element: <Error />,
       },
     ],

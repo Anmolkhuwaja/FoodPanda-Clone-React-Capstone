@@ -39,21 +39,31 @@ import {
   removeFromCart,
   incrementItem,
   decrementItem,
-  addToCart,
 } from "../../slices/cartSlice";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 // Schema for Validation
 const schema = yup.object({
   username: yup
     .string()
-    .min(5, "Min 5 characters")
-    .required("Username is required"),
-  email: yup.string().email("Invalid email").required("Email is required"),
+    .required("Username is required")
+    .min(5, "Username must be at least 5 characters")
+    .matches(/^[a-zA-Z ,.'-]+$/, "Username should only contain letters"),
+  email: yup
+    .string()
+    .email("Invalid email")
+    .required("Email is required"),
   password: yup
     .string()
+    .required("Password is required")
     .min(8, "Password must be at least 8 characters")
-    .required("Password is required"),
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      "Password must include an uppercase, a lowercase, a number, and a special character"
+    ),
 });
+
 
 const Header = () => {
   // Declare state for one & second modal
@@ -83,23 +93,31 @@ const Header = () => {
     password: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+    },
+  });
+
 
   // Check for user in localStorage on page load
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      setFormData(JSON.parse(storedUser));
     }
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    localStorage.setItem("user", JSON.stringify(formData));
-    dispatch(setUser({ username: formData.username, email: formData.email }));
+  const onSubmit = (data) => {
+    localStorage.setItem("user", JSON.stringify(data));
+    dispatch(setUser({ username: data.username, email: data.email }));
     setOpen2(false);
   };
 
@@ -118,10 +136,6 @@ const Header = () => {
     }
     setIsDrawerOpen(open);
   };
-
-  // const handleToggleDrawer = () => {
-  //   setIsDrawerOpen(!isDrawerOpen);
-  // };
 
   const handleIncrement = (id) => {
     dispatch(incrementItem({ id }));
@@ -282,13 +296,15 @@ const Header = () => {
             anchor="right"
             open={isDrawerOpen}
             onClose={toggleDrawer2(false)}
+            sx={{height:'100vh'}}
           >
             <Box
-              className="w-full h-[100vh] bg-gray-50 shadow-lg rounded-lg p-4 flex flex-col"
+            sx={{width:370}}
+              className="h-[100vh] bg-gray-50 shadow-lg rounded-lg px-4 py-2 flex flex-col"
               role="presentation"
             >
               {cart.cartItems.length === 0 ? (
-                <div
+                <Box
                   id="cart-empty"
                   className="text-center !py-4 flex-grow flex flex-col justify-center"
                 >
@@ -326,28 +342,28 @@ const Header = () => {
                       </Link>
                     </button>
                   </Box>
-                </div>
+                </Box>
               ) : (
                 <>
-                  <div id="cart-items" className="overflow-y-auto flex-grow">
+                  <Box id="cart-items" className="overflow-y-auto flex-grow">
                     {cart.cartItems.map((item) => (
-                      <div key={item.id} className="mb-4">
+                      <Box key={item.id} className="mb-4">
                         <Box className="flex items-start justify-start p-4">
                           <img
                             className="w-16"
                             src={item.image}
                             alt={item.name}
                           />
-                          <p className="text-gray-800 font-medium ps-2">
+                          <Typography className="text-gray-800 font-medium ps-2">
                             {item.name}
-                          </p>
+                          </Typography>
                         </Box>
-                        <div className="flex items-center justify-start !font-medium space-x-2">
-                          <p className="text-sm text-gray-500 ps-4">
+                        <Box className="flex items-center justify-start !font-medium space-x-2">
+                          <Typography className="text-sm text-gray-500 ps-4">
                             {`Rs. ${item.totalPrice}`}
-                          </p>
-                          <div className="flex items-center mt-2 ps-4 !bg-gray-50 rounded-lg">
-                            <div className="flex items-center px-2 border border-gray-400 !justify-center space-x-2 bg-white rounded-3xl">
+                          </Typography>
+                          <Box className="flex items-center mt-2 ps-4 !bg-gray-50 rounded-lg">
+                            <Box className="flex items-center px-2 border border-gray-400 !justify-center space-x-2 bg-white rounded-3xl">
                               <button
                                 onClick={() => handleDecrement(item.id)}
                                 className="bg-white p-1 !text-md rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
@@ -363,18 +379,18 @@ const Header = () => {
                               >
                                 <FontAwesomeIcon icon={faPlus} />
                               </button>
-                            </div>
+                            </Box>
                             <button
                               onClick={() => handleRemove(item.id)}
                               className="bg-white border ms-4 border-gray-300 px-2 py-1 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
                             >
                               <FontAwesomeIcon icon={faTrashAlt} />
                             </button>
-                          </div>
-                        </div>
-                      </div>
+                          </Box>
+                        </Box>
+                      </Box>
                     ))}
-                  </div>
+                  </Box>
                   <Box
                     id="cart-footer"
                     className="border-t border-gray-300 pt-4"
@@ -404,9 +420,10 @@ const Header = () => {
           display: { xs: "flex", md: "none" },
           position: "fixed",
           zIndex: 1000,
-          left: 10,
+          top:2,
+          left: 14,
         }}
-        className="!ml-1 !mt-4 md:!mt-8"
+        className="!md:ml-6 !ml-1 !mt-4 md:!mt-6"
       >
         <IconButton
           size="large"
@@ -429,7 +446,6 @@ const Header = () => {
             setOpen4={setOpen4}
             faAngleDown={faAngleDown}
             handleLogout={handleLogout}
-            // setOpen5={setOpen5}
             faArrowRightFromBracket={faArrowRightFromBracket}
           />
         </IconButton>
@@ -603,93 +619,107 @@ const Header = () => {
 
       {/* Modal 2: Login/Signup */}
       <Modal open={open2} onClose={() => setOpen2(false)}>
-        <Box
-          sx={{
-            width: 400,
-            margin: "50px auto",
-            p: 4,
-            backgroundColor: "#fff",
-            borderRadius: 2,
-          }}
-        >
-          <Typography variant="h6" sx={{ fontSize: "28px", fontWeight: "500" }}>
-            Welcome!
-          </Typography>
-          <Typography sx={{ fontSize: "16px", mt: 2 }}>
-            Sign up or log in to continue
-          </Typography>
+      <Box
+        sx={{
+          width: 400,
+          margin: "50px auto",
+          p: 4,
+          backgroundColor: "#fff",
+          borderRadius: 2,
+        }}
+      >
+        <Typography variant="h6" sx={{ fontSize: "28px", fontWeight: "500" }}>
+          Welcome!
+        </Typography>
+        <Typography sx={{ fontSize: "16px", mt: 2 }}>
+          Sign up or log in to continue
+        </Typography>
 
-          <form onSubmit={handleSubmit}>
-            <TextField
-              name="username"
-              label="Username"
-              fullWidth
-              sx={{ mt: 2, mb: 2 }}
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              name="email"
-              label="Email"
-              fullWidth
-              sx={{ mb: 2 }}
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              name="password"
-              label="Password"
-              type="password"
-              fullWidth
-              sx={{ mb: 2 }}
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-
-            <Button
-              type="submit"
-              variant="contained"
-              fullWidth
-              sx={{
-                background: "#e21b70",
-                textTransform: "capitalize",
-                "&:hover": {
-                  backgroundColor: "#9d0a48",
-                },
-              }}
-            >
-              Log in
-            </Button>
-            <Button
-              type="submit"
-              variant="contained"
-              fullWidth
-              sx={{
-                background: "#fff",
-                color: "#39434d",
-                marginTop: "6px",
-                textTransform: "capitalize",
-                "&:hover": {
-                  backgroundColor: "#FDF2F7",
-                },
-              }}
-            >
-              Sign up
-            </Button>
-            <Typography
-              sx={{ fontSize: "13px", paddingY: "15px", color: "#4d4d4d" }}
-            >
-              By signing up, you agree to our{" "}
-              <span className=" underline hover:no-underline text-pink-600">
-                Terms and Conditions and Privacy Policy.
-              </span>
-            </Typography>
-          </form>
-        </Box>
-      </Modal>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+            name="username"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Username"
+                fullWidth
+                sx={{ mt: 2, mb: 2 }}
+                error={!!errors.username}
+                helperText={errors.username?.message}
+              />
+            )}
+          />
+          <Controller
+            name="email"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Email"
+                fullWidth
+                sx={{ mb: 2 }}
+                error={!!errors.email}
+                helperText={errors.email?.message}
+              />
+            )}
+          />
+          <Controller
+            name="password"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Password"
+                type="password"
+                fullWidth
+                sx={{ mb: 2 }}
+                error={!!errors.password}
+                helperText={errors.password?.message}
+              />
+            )}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{
+              background: "#e21b70",
+              textTransform: "capitalize",
+              "&:hover": {
+                backgroundColor: "#9d0a48",
+              },
+            }}
+          >
+            Log in
+          </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{
+              background: "#fff",
+              color: "#39434d",
+              marginTop: "6px",
+              textTransform: "capitalize",
+              "&:hover": {
+                backgroundColor: "#FDF2F7",
+              },
+            }}
+          >
+            Sign up
+          </Button>
+          <Typography
+            sx={{ fontSize: "13px", paddingY: "15px", color: "#4d4d4d" }}
+          >
+            By signing up, you agree to our{" "}
+            <span className=" underline hover:no-underline text-pink-600">
+              Terms and Conditions and Privacy Policy.
+            </span>
+          </Typography>
+        </form>
+      </Box>
+    </Modal>
     </Box>
   );
 };

@@ -21,13 +21,13 @@ const loadStateFromLocalStorage = () => {
 // Create the cart slice
 const cartSlice = createSlice({
   name: "cart",
-  initialState: loadStateFromLocalStorage(), // Load state from localStorage on initialization
+  initialState: loadStateFromLocalStorage(),
   reducers: {
     addToCart: (state, action) => {
       const existingItem = state.cartItems.find(
         (item) => item.id === action.payload.id
       );
-      const price = parseFloat(action.payload.price); // Ensure price is treated as a number
+      const price = parseFloat(action.payload.price);
 
       if (existingItem) {
         existingItem.quantity += 1;
@@ -48,7 +48,7 @@ const cartSlice = createSlice({
         .reduce((sum, item) => sum + item.totalPrice, 0)
         .toFixed(2);
 
-      saveStateToLocalStorage(state); // Save state to localStorage
+      saveStateToLocalStorage(state);
     },
 
     incrementItem: (state, action) => {
@@ -68,7 +68,7 @@ const cartSlice = createSlice({
       state.totalPrice = +state.cartItems
         .reduce((sum, item) => sum + item.totalPrice, 0)
         .toFixed(2);
-      saveStateToLocalStorage(state); // Save state
+      saveStateToLocalStorage(state);
     },
 
     decrementItem: (state, action) => {
@@ -92,7 +92,7 @@ const cartSlice = createSlice({
       state.totalPrice = +state.cartItems
         .reduce((sum, item) => sum + item.totalPrice, 0)
         .toFixed(2);
-      saveStateToLocalStorage(state); // Save state
+      saveStateToLocalStorage(state);
     },
 
     removeFromCart: (state, action) => {
@@ -107,7 +107,7 @@ const cartSlice = createSlice({
       state.totalPrice = +state.cartItems
         .reduce((sum, item) => sum + item.totalPrice, 0)
         .toFixed(2);
-      saveStateToLocalStorage(state); // Save state
+      saveStateToLocalStorage(state);
     },
   },
 });

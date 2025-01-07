@@ -1,108 +1,22 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart } from "../../slices/cartSlice"; // Adjust the import path based on your setup
 import { Link } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
+import useOrderForm from "./useOrderForm";
 
 const OrderForm = () => {
-  const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart.cartItems); // Fetch cart items from Redux state
-  const totalPrice = useSelector((state) => state.cart.totalPrice); // Get total price from Redux state
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    address: "",
-    phone: "",
-    city: "",
-    postalCode: "",
-    country: "",
-    paymentMethod: "",
-  });
-  const [errors, setErrors] = useState({}); // Store errors here
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Handle form input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  // Handle form validation
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.name) newErrors.name = "Name is required.";
-    if (!formData.email) newErrors.email = "Email is required.";
-    if (!formData.address) newErrors.address = "Address is required.";
-    if (!formData.phone) newErrors.phone = "Phone number is required.";
-    if (!formData.city) newErrors.city = "City is required.";
-    if (!formData.postalCode) newErrors.postalCode = "Postal code is required.";
-    if (!formData.country) newErrors.country = "Country is required.";
-    if (!formData.paymentMethod)
-      newErrors.paymentMethod = "Please select a payment method.";
-
-    setErrors(newErrors);
-
-    // Return true if no errors
-    return Object.keys(newErrors).length === 0;
-  };
-
-  // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // If no items in the cart, don't submit the form
-    if (cartItems.length === 0) {
-      alert(
-        "Your cart is empty. Please add items to the cart before submitting."
-      );
-      return;
-    }
-
-    if (!validateForm()) return;
-
-    // Open modal on successful order placement
-    setIsModalOpen(true);
-
-    // Save order to localStorage
-    const orderDetails = {
-      formData,
-      cartItems,
-      totalPrice,
-    };
-    localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
-
-    // Log order details to console (for tracking)
-    console.log("Order Placed:", orderDetails);
-
-    // Clear cart and form after submission
-    cartItems.forEach((item) => dispatch(removeFromCart({ id: item.id })));
-    setFormData({
-      name: "",
-      email: "",
-      address: "",
-      phone: "",
-      city: "",
-      postalCode: "",
-      country: "",
-      paymentMethod: "",
-    });
-    setErrors({});
-  };
-
-  // Handle modal close
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const {handleCloseModal, handleSubmit,handleChange, isModalOpen, errors, formData, cartItems,totalPrice } = useOrderForm()
 
   return (
-    <div className="flex flex-col !mt-16 lg:flex-row bg-white text-gray-800 p-6 lg:space-x-8">
+    <Box className="flex flex-col !mt-20 lg:flex-row bg-white text-gray-800 md:!mr-14 md:!p-6 p-0 lg:space-x-10">
       {/* Left Side: Form */}
-      <div className="lg:w-3/5 w-full bg-white p-6 rounded-lg shadow-md border">
-        <h1 className="text-2xl font-bold mb-4 text-pink-600">Contact</h1>
+      <Box className="lg:w-3/5 w-full bg-white md:!p-6 lg:!ml-14 md:!ml-8 !p-0 rounded-lg md:px-20 !px-6">
+        <Typography className="!text-2xl !font-medium mb-4 text-pink-600">Contact</Typography>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="name" className="block font-semibold">
+          <Box>
+            <Typography htmlFor="name" className="block font-semibold">
               Name
-            </label>
+            </Typography>
             <input
               type="text"
               id="name"
@@ -112,14 +26,14 @@ const OrderForm = () => {
               className="w-full p-2 border border-gray-300 rounded-md"
             />
             {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name}</p>
+              <Typography className="text-red-500 text-sm">{errors.name}</Typography>
             )}
-          </div>
+          </Box>
 
-          <div>
-            <label htmlFor="email" className="block font-semibold">
+          <Box>
+            <Typography htmlFor="email" className="block font-semibold">
               Email
-            </label>
+            </Typography>
             <input
               type="email"
               id="email"
@@ -129,14 +43,14 @@ const OrderForm = () => {
               className="w-full p-2 border border-gray-300 rounded-md"
             />
             {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email}</p>
+              <Typography className="text-red-500 text-sm">{errors.email}</Typography>
             )}
-          </div>
+          </Box>
 
-          <div>
-            <label htmlFor="address" className="block font-semibold">
+          <Box>
+            <Typography htmlFor="address" className="block font-semibold">
               Address
-            </label>
+            </Typography>
             <input
               type="text"
               id="address"
@@ -146,14 +60,14 @@ const OrderForm = () => {
               className="w-full p-2 border border-gray-300 rounded-md"
             />
             {errors.address && (
-              <p className="text-red-500 text-sm">{errors.address}</p>
+              <Typography className="text-red-500 text-sm">{errors.address}</Typography>
             )}
-          </div>
+          </Box>
 
-          <div>
-            <label htmlFor="phone" className="block font-semibold">
+          <Box>
+            <Typography htmlFor="phone" className="block font-semibold">
               Phone
-            </label>
+            </Typography>
             <input
               type="text"
               id="phone"
@@ -163,14 +77,14 @@ const OrderForm = () => {
               className="w-full p-2 border border-gray-300 rounded-md"
             />
             {errors.phone && (
-              <p className="text-red-500 text-sm">{errors.phone}</p>
+              <Typography className="text-red-500 text-sm">{errors.phone}</Typography>
             )}
-          </div>
+          </Box>
 
-          <div>
-            <label htmlFor="city" className="block font-semibold">
+          <Box>
+            <Typography htmlFor="city" className="block font-semibold">
               City
-            </label>
+            </Typography>
             <input
               type="text"
               id="city"
@@ -180,14 +94,14 @@ const OrderForm = () => {
               className="w-full p-2 border border-gray-300 rounded-md"
             />
             {errors.city && (
-              <p className="text-red-500 text-sm">{errors.city}</p>
+              <Typography className="text-red-500 text-sm">{errors.city}</Typography>
             )}
-          </div>
+          </Box>
 
-          <div>
-            <label htmlFor="postalCode" className="block font-semibold">
+          <Box>
+            <Typography htmlFor="postalCode" className="block font-semibold">
               Postal Code
-            </label>
+            </Typography>
             <input
               type="text"
               id="postalCode"
@@ -197,14 +111,14 @@ const OrderForm = () => {
               className="w-full p-2 border border-gray-300 rounded-md"
             />
             {errors.postalCode && (
-              <p className="text-red-500 text-sm">{errors.postalCode}</p>
+              <Typography className="text-red-500 text-sm">{errors.postalCode}</Typography>
             )}
-          </div>
+          </Box>
 
-          <div>
-            <label htmlFor="country" className="block font-semibold">
+          <Box>
+            <Typography htmlFor="country" className="block font-semibold">
               Country
-            </label>
+            </Typography>
             <input
               type="text"
               id="country"
@@ -214,14 +128,14 @@ const OrderForm = () => {
               className="w-full p-2 border border-gray-300 rounded-md"
             />
             {errors.country && (
-              <p className="text-red-500 text-sm">{errors.country}</p>
+              <Typography className="text-red-500 text-sm">{errors.country}</Typography>
             )}
-          </div>
+          </Box>
 
-          <div>
-            <label htmlFor="paymentMethod" className="block font-semibold">
+          <Box>
+            <Typography htmlFor="paymentMethod" className="block font-semibold">
               Payment Method
-            </label>
+            </Typography>
             <select
               id="paymentMethod"
               name="paymentMethod"
@@ -235,9 +149,9 @@ const OrderForm = () => {
               <option value="bankTransfer">Bank Transfer</option>
             </select>
             {errors.paymentMethod && (
-              <p className="text-red-500 text-sm">{errors.paymentMethod}</p>
+              <Typography className="text-red-500 text-sm">{errors.paymentMethod}</Typography>
             )}
-          </div>
+          </Box>
 
           <button
             type="submit"
@@ -246,61 +160,61 @@ const OrderForm = () => {
             Place Order
           </button>
         </form>
-      </div>
+      </Box>
 
       {/* Right Side: Cart Items */}
-      <div className="lg:w-2/5 w-full bg-pink-50 p-6 rounded-lg shadow-md border">
-        <h2 className="text-2xl font-bold mb-4 text-pink-600">Order Summary</h2>
-        <div className="space-y-4">
+            <Box className='px-6 md:px-0 lg:w-2/5 w-full h-full mt-20 mx-0 md:mx-8'>
+            <Box className=" bg-pink-50 p-4 rounded-lg  md:!p-6">
+        <Typography className="!text-2xl !font-medium mb-4 text-pink-600">Order Summary</Typography>
+        <Box className="space-y-4">
           {cartItems.length === 0 ? (
-            <p>Your cart is empty.</p>
+            <Typography>Your cart is empty.</Typography>
           ) : (
-            <div>
-              <ul className="space-y-2">
+            <Box>
+              <ul className="space-y-2 mt-2">
                 {cartItems.map((item, index) => (
                   <li key={index} className="flex justify-between items-center">
-                    <div>
-                      <p className="font-semibold">{item.name}</p>
-                      <p className="text-sm text-gray-500">{item.details}</p>
-                    </div>
-                    <div className="flex items-center">
-                      <p className="font-semibold">
+                    <Box>
+                      <Typography className="font-semibold">{item.name}</Typography>
+                      <Typography className="text-sm text-gray-500">{item.details}</Typography>
+                    </Box>
+                    <Box className="flex items-center">
+                      <Typography className="font-semibold">
                         Rs {item.price}
-                      </p>
-                    </div>
+                      </Typography>
+                    </Box>
                   </li>
                 ))}
               </ul>
-              <div className="mt-4">
-                <p className="font-medium">Shipping: Rs 150.00</p>
-                <p className="font-bold text-lg mt-2">
+              <Box className="mt-4">
+                <Typography className="!font-bold text-lg mt-2">
                   Total: Rs {totalPrice.toFixed(2)}
-                </p>
-              </div>
-            </div>
+                </Typography>
+              </Box>
+            </Box>
           )}
-        </div>
-      </div>
-
+        </Box>
+      </Box>
+            </Box>
       {isModalOpen && (
-        <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
-            <h2 className="text-2xl font-bold text-pink-600 mb-4">
+        <Box className="fixed inset-0 bg-gray-700 bg-opacity-50 flex justify-center items-center z-50">
+          <Box className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
+            <Typography className="text-2xl font-bold text-pink-600 mb-4">
               Order Placed Successfully!
-            </h2>
-            <p className="text-gray-600 mb-6">
+            </Typography>
+            <Typography className="text-gray-600 mb-6">
               Your order has been successfully placed. We'll process it shortly.
-            </p>
+            </Typography>
             <button
               onClick={handleCloseModal}
               className="py-2 px-4 bg-pink-600 text-white font-bold rounded-md hover:bg-pink-700"
             >
               <Link to="/">Home</Link>
             </button>
-          </div>
-        </div>
+          </Box>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };
 

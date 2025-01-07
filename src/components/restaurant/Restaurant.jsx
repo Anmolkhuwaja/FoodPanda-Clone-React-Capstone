@@ -316,109 +316,100 @@ const Restaurant = () => {
           </div>
 
           {/* drawer part */}
-          <Box className="w-full hidden lg:block lg:w-1/4 h-[70vh] bg-gray-50 shadow-lg rounded-lg p-4">
-            {cart.cartItems.length === 0 ? (
-              <div
-                id="cart-empty"
-                className="text-center !py-4 flex-grow flex flex-col justify-center"
-              >
-                <img
-                  src="https://foodpanda.dhmedia.io/image/bento/production/web/fp/empty-state/illu_cart_empty.svg"
-                  alt="Empty Cart Image"
-                  className="mx-auto mb-4 w-24 h-24 object-contain"
-                />
-                <Typography className="text-gray-700 !font-bold !text-2xl !mb-3">
-                  Hungry?
-                </Typography>
-                <Typography className="text-gray-500 px-4 !text-lg mb-4">
-                  You haven't added anything to your cart!
-                </Typography>
-                <Box className="mt-28">
-                  <Box className="mb-1 flex justify-between items-center">
-                    <Typography className="font-bold text-gray-800">
-                      <span className="!font-bold">Total</span> (incl. fees and
-                      tax)
-                    </Typography>
-                    <Typography className="text-lg !font-bold text-pink-600">
-                      Rs: {cart.totalPrice}
-                    </Typography>
-                  </Box>
+          <Box className="w-full hidden lg:block mt-24 lg:w-1/4 h-[70vh] bg-gray-50 shadow-lg rounded-lg flex flex-col p-4 relative overflow-hidden"
+>
+  {cart.cartItems.length === 0 ? (
+    <div
+      id="cart-empty"
+      className="text-center !py-4 flex-grow flex flex-col justify-center"
+    >
+      <img
+        src="https://foodpanda.dhmedia.io/image/bento/production/web/fp/empty-state/illu_cart_empty.svg"
+        alt="Empty Cart Image"
+        className="mx-auto mb-4 w-24 h-24 object-contain"
+      />
+      <Typography className="text-gray-700 !font-bold !text-2xl !mb-3">
+        Hungry?
+      </Typography>
+      <Typography className="text-gray-500 px-4 !text-lg mb-4">
+        You haven't added anything to your cart!
+      </Typography>
+    </div>
+  ) : (
+    <>
+      {/* Scrollable Items Section */}
+      <div
+        id="cart-items"
+        className="overflow-y-auto flex-grow pr-2"
+        style={{ maxHeight: "calc(100% - 80px)" }} // Adjust to leave space for the footer
+      >
+        {cart.cartItems.map((item) => (
+          <div key={item.id} className="mb-4">
+            <Box className="flex items-start justify-between p-4">
+              <img className="w-16" src={item.image} alt="" />
+              <div className="flex-grow pl-2">
+                <p className="text-gray-800 font-medium">{item.name}</p>
+                <div className="flex items-center mt-2">
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={() => handleDecrement(item.id)}
+                      className="bg-white p-1 !text-md rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
+                    >
+                      <FontAwesomeIcon icon={faMinus} />
+                    </button>
+                    <span className="bg-white p-1 !text-md rounded-lg">
+                      {item.quantity}
+                    </span>
+                    <button
+                      onClick={() => handleIncrement(item.id)}
+                      className="bg-white rounded-lg !text-md p-1 transition duration-300 ease-in-out transform hover:scale-105"
+                    >
+                      <FontAwesomeIcon icon={faPlus} />
+                    </button>
+                  </div>
                   <button
-                    className={`!bg-pink-600 text-white px-6 py-2 rounded-lg shadow-md font-medium transition-all duration-300 ${
-                      cart.cartItems.length === 0
-                        ? "opacity-50 cursor-not-allowed"
-                        : "hover:bg-pink-800"
-                    }`}
-                    disabled={cart.cartItems.length === 0}
+                    onClick={() => handleRemove(item.id)}
+                    className="bg-white border ms-4 border-gray-300 px-2 py-1 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
                   >
-                    <Link to={cart.cartItems.length > 0 ? "/order" : "#"}>
-                      Review payment and address
-                    </Link>
+                    <FontAwesomeIcon icon={faTrashAlt} />
                   </button>
-                </Box>
-              </div>
-            ) : (
-              <>
-                <div id="cart-items" className="overflow-y-auto flex-grow">
-                  {cart.cartItems.map((item) => (
-                    <div key={item.id} className="mb-4">
-                      <Box className="flex items-start justify-start p-4">
-                        <img className="w-16" src={item.image} alt="" />
-                        <p className="text-gray-800 font-medium ps-2">
-                          {item.name}
-                        </p>
-                      </Box>
-                      <div className="flex items-center justify-start !font-medium space-x-2">
-                        <p className="text-sm text-gray-500 ps-4">{`Rs. ${item.totalPrice}`}</p>
-                        <div className="flex items-center mt-2 ps-4 !bg-gray-50 rounded-lg">
-                          <div className="flex items-center px-2 border border-gray-400 !justify-center space-x-2 bg-white rounded-3xl">
-                            <button
-                              onClick={() => handleDecrement(item.id)}
-                              className="bg-white p-1 !text-md rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
-                            >
-                              <FontAwesomeIcon icon={faMinus} />
-                            </button>
-                            <span className="bg-white p-1 !text-md rounded-lg mx-2">
-                              {item.quantity}
-                            </span>
-                            <button
-                              onClick={() => handleIncrement(item.id)}
-                              className="bg-white rounded-lg !text-md p-1 transition duration-300 ease-in-out transform hover:scale-105"
-                            >
-                              <FontAwesomeIcon icon={faPlus} />
-                            </button>
-                          </div>
-
-                          <button
-                            onClick={() => handleRemove(item.id)}
-                            className="bg-white border ms-4 border-gray-300 px-2 py-1 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
-                          >
-                            <FontAwesomeIcon icon={faTrashAlt} />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
                 </div>
+                <p className="text-sm text-gray-500 mt-2">{`Rs. ${item.totalPrice}`}</p>
+              </div>
+            </Box>
+          </div>
+        ))}
+      </div>
+    </>
+  )}
 
-                <Box id="cart-footer" className="border-t border-gray-300 pt-4">
-                  <Box className="mb-4 flex justify-between items-center">
-                    <Typography className="font-bold text-gray-800">
-                      <span className="!font-bold">Total</span> (incl. fees and
-                      tax)
-                    </Typography>
-                    <Typography className="text-lg !font-bold text-pink-600">
-                      Rs: {cart.totalPrice}
-                    </Typography>
-                  </Box>
-
-                  <button className="!bg-pink-600 text-white px-6 py-2 rounded-lg shadow-md font-medium transition-all duration-300 hover:bg-pink-800 w-full">
-                    <Link to="/order">Review payment and address</Link>
-                  </button>
-                </Box>
-              </>
-            )}
-          </Box>
+  {/* Fixed Button Section */}
+  <div
+    id="cart-footer"
+    className="absolute bottom-0 left-0 w-full bg-gray-50 border-t border-gray-300 p-4"
+  >
+    <div className="mb-2 flex justify-between items-center">
+      <Typography className="font-bold text-gray-800">
+        <span className="!font-bold">Total</span> (incl. fees and tax)
+      </Typography>
+      <Typography className="text-lg !font-bold text-pink-600">
+        Rs: {cart.totalPrice}
+      </Typography>
+    </div>
+    <button
+      className={`!bg-pink-600 text-white px-6 py-2 rounded-lg shadow-md font-medium transition-all duration-300 w-full ${
+        cart.cartItems.length === 0
+          ? "opacity-50 cursor-not-allowed"
+          : "hover:bg-pink-800"
+      }`}
+      disabled={cart.cartItems.length === 0} // Always visible but disabled when no items
+    >
+      <Link to={cart.cartItems.length > 0 ? "/order" : "#"}>
+        Review payment and address
+      </Link>
+    </button>
+  </div>
+        </Box>
 
           {/* Modal */}
           <Modal open={open} onClose={handleClose}>

@@ -20,13 +20,12 @@ const MobileDrawer = (props) => {
     setOpen2,
     setOpen3,
     setOpen4,
-    setOpen5,
     handleLogout,
   } = props;
 
   return (
     <>
-      <div>
+      <Box>
         <Drawer open={open} onClose={toggleDrawer(false)}>
           <Box
             sx={{ width: 320 }}
@@ -131,7 +130,7 @@ const MobileDrawer = (props) => {
             </Box>
           </Box>
         </Drawer>
-      </div>
+      </Box>
     </>
   );
 };

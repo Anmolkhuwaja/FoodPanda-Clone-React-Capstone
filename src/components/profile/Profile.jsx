@@ -18,13 +18,14 @@ const schema = yup
     username: yup
       .string()
       .required("Username is required")
-      .min(3, "Username should have at least 3 characters"),
+      .min(3, "Username should have at least 3 characters")
+      .matches(/^[A-Za-z]+$/, "Username should only contain letters"),
   })
   .required();
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user); // Fetch the user data from Redux store
+  const user = useSelector((state) => state.user);
 
   const {
     control,
@@ -39,8 +40,8 @@ const Profile = () => {
 
   const onSubmit = (data) => {
     const updatedUser = { ...user, username: data.username };
-    dispatch(setUser(updatedUser)); // Dispatch the action to update user in Redux store
-    localStorage.setItem("user", JSON.stringify(updatedUser)); // Optionally update localStorage
+    dispatch(setUser(updatedUser));
+    localStorage.setItem("user", JSON.stringify(updatedUser));
   };
 
   return (

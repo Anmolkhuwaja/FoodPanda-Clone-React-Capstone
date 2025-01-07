@@ -1,39 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import citiesData from "../../components/data/Cities.json";
-import { Box, Button, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
 import Panda from "../../assets/Hero home page.webp";
 import Card from "@mui/material/Card";
-import restaurantsData from "../../components/data/RestaurantsData.json";
+import useCity from "./useCity";
 
 const City = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [city, setCity] = useState(null);
-  const [restaurants, setRestaurants] = useState([]);
-  const [closeRestaurants, setCloseRestaurants] = useState([]);
-
-  useEffect(() => {
-    // Find city data from imported JSON
-    const cityData = citiesData.find((city) => city.id === id);
-    setCity(cityData);
-    window.scrollTo(0, 0);
-  }, [id]);
-
-  useEffect(() => {
-    setRestaurants(restaurantsData.restaurants);
-  }, []);
-
-  useEffect(() => {
-    setCloseRestaurants(restaurantsData.closed_restaurants);
-  }, []);
+  const { city, restaurants, navigate, closeRestaurants } = useCity();
 
   return (
     <>
-      <div className="lg:!mt-[65px] lg:!h-[41vh] md:!h-[25vh] !h-[20vh] md:!mt-[100px] !mt-[70px] bg-[#f7f7f7] ">
+      <Box className="lg:!mt-[65px] lg:!h-[41vh] md:!h-[25vh] !h-[20vh] md:!mt-[100px] !mt-[70px] bg-[#f7f7f7] ">
         {city ? (
           <Box className="flex items-center lg:px-10 md:px-1">
-            <Typography className="text-[#333333] lg:!text-[40px] md:!text-[25px] ps-5 !text-[12px] lg:ps-10 md:ps-1 !font-bold">
+            <Typography className="text-[#333333] lg:!text-[40px] md:!text-[25px] ps-5 !text-[12px] lg:ps-10 md:ps-7 !font-bold">
               {city.title}
             </Typography>
             <img
@@ -63,7 +42,7 @@ const City = () => {
             </Typography>
           )}
         </Box>
-      </div>
+      </Box>
 
       <Typography className="text-[#333333] !mt-16 md:!mt-16 lg:!mt-14 lg:!ms-14 md:!ps-6 ps-0 !ms-5 !font-medium lg:px-20 !text-[28px] lg:!text-[35px] md:!text-[25px]">
         All restaurants

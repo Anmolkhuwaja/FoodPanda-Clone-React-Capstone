@@ -13,7 +13,7 @@ const Cities = () => {
 
   return (
     <>
-      <Typography className="!text-3xl sm:text-base !mt-[20%] lg:!mt-[23%] md:!mt-[30%] lg:ps-15 !font-bold !md:mt-[22%] lg:pl-24 md:pl-12">
+      <Typography className="!text-3xl sm:text-base !mt-[20%] lg:!mt-[23%] md:!mt-[30%] lg:ps-15 !font-bold !md:mt-[22%] lg:!pl-24 !px-7 md:px-0 lg:px-0 md:pl-12">
         Find us in these cities and many more!
       </Typography>
 
